@@ -143,12 +143,3 @@ Os URLs e os SHA-256 dos arquivos baixados do IBGE estão em `data/catalogs/mani
 ## Tecnologia
 
 Python (`pandas`, `numpy`, `pyarrow`, `sqlite3`) para o processamento; HTML, CSS e JavaScript puros na página, com [Leaflet](https://leafletjs.com) 1.9.4 para o mapa e a fonte [Manrope](https://github.com/sharanda/manrope) (SIL OFL) embutidas. Sem framework, sem servidor, sem cookies e sem coleta de dados.
-
-## Próximos passos
-
-- Segurança pública por bairro, via pedido pela Lei de Acesso à Informação (a pesquisa não achou base aberta que cubra as três cidades).
-- Mais cidades do Paraná e outras características do Censo.
-
-## Autoria e licença
-
-Projeto de análise de dados abertos, desenvolvido com apoio do [Claude Code](https://claude.com/claude-code). Licença do código: ainda não definida. Os dados pertencem ao TSE, ao IBGE e aos colaboradores do OpenStreetMap, e as fontes estão citadas na própria página.
