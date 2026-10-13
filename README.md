@@ -55,7 +55,7 @@ flowchart LR
   F --> E
   D --> G["Correlação de Spearman<br/>IC 95% · checagens"]
   E --> G
-  G --> H["docs/index.html<br/>página única"]
+  G --> H["index.html<br/>página única"]
 ```
 
 **1. Votos por bairro.** Cada local de votação (com latitude e longitude do TSE) é colocado dentro do bairro do IBGE em que cai, por ponto em polígono. 100% dos votos de seções cadastradas entram em alguma unidade.
@@ -91,9 +91,8 @@ flowchart LR
 ## Estrutura
 
 ```
-docs/
-  index.html            a página (publicada pelo GitHub Pages)
-  img/                  capturas usadas neste README
+index.html              a página (publicada pelo GitHub Pages, a partir da raiz da main)
+docs/img/               capturas usadas neste README
 scripts/
   01_tse.py             votos por seção, bairro e município
   02_integrar.py        Censo por município e por bairro, Inep, Caged
@@ -123,7 +122,7 @@ for c in 4115200 4106902 4113700; do       # Maringá, Curitiba, Londrina
   python scripts/06_bairros_espacial.py --uf PR --municipio $c
 done
 python scripts/07_analise_parana.py 4115200 4106902 4113700
-python scripts/08_relatorio_bairros.py        # grava outputs/ e docs/index.html
+python scripts/08_relatorio_bairros.py        # grava outputs/ e index.html
 python scripts/05_validar.py
 ```
 

@@ -82,10 +82,8 @@ def main():
     html = html.replace('__FAVICON__', base64.b64encode((ic / 'favicon.svg').read_bytes()).decode()).replace('__APPLE__', base64.b64encode((ic / 'apple-touch-icon.png').read_bytes()).decode())
     html = html.replace('__FONT__', font).replace('__DATA__', json.dumps(data, ensure_ascii=False, allow_nan=False, separators=(',', ':')).replace('</', '<\\/'))
     (OUT / 'relatorio_bairros_parana.html').write_text(html, encoding='utf-8')
-    site = ROOT / 'docs'  # fonte do GitHub Pages
-    site.mkdir(exist_ok=True)
-    (site / 'index.html').write_text(html, encoding='utf-8')
-    (site / '.nojekyll').write_text('', encoding='utf-8')
+    (ROOT / 'index.html').write_text(html, encoding='utf-8')  # raiz da main: fonte do GitHub Pages
+    (ROOT / '.nojekyll').write_text('', encoding='utf-8')  # o Pages serve o index.html em vez de renderizar o README
     print('Relatório criado:', OUT / 'relatorio_bairros_parana.html', f'{len(html) / 1e6:.1f} MB', '| cidades:', ', '.join(v['nome'] for v in cidades_.values()))
 
 if __name__ == '__main__':
