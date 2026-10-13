@@ -1,7 +1,0 @@
-08-08-25  09:52AM       <DIR>          CAGED
-08-08-25  09:52AM       <DIR>          CAGED_AJUSTES
-04-25-16  10:47AM                77037 COMUNICADO_microdados.pdf
-04-25-16  10:47AM               135423 NOTA_TECNICA_microdados.pdf
-03-03-26  11:23AM       <DIR>          NOVO CAGED
-05-13-26  11:38AM       <DIR>          RAIS
-06-21-26  12:06AM       <DIR>          TRABALHO_DOMESTICO

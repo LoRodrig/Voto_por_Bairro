@@ -43,28 +43,6 @@ def test_hole_is_not_inside():
     r = esp.atribuir_bairros(locais(('0,5', '0,5')), [('A', [quad(0, 0, 1, 1), hole])])
     assert r.motivo_exclusao.iloc[0] == 'FORA_DE_BAIRRO'
 
-KEY = ['SG_UF', 'CD_MUNICIPIO', 'NR_ZONA', 'NR_SECAO']
-
-def _votos():
-    return pd.DataFrame({'SG_UF': 'PR', 'CD_MUNICIPIO': 1, 'NR_ZONA': 1, 'NR_SECAO': [1, 2, 3, 4],
-                         'NR_VOTAVEL': 13, 'QT_VOTOS': [10, 20, 5, 7]})
-
-def _secoes():
-    s = _votos()[KEY].iloc[:3].copy()  # seção 4 não está no cadastro
-    s['CD_BAIRRO'] = ['A', 'A', None]
-    s['motivo_exclusao'] = ['', '', 'SEM_COORDENADA']
-    return s
-
-def test_votos_por_bairro_reconciles_with_exclusions():
-    por_bairro, excl = esp.votos_por_bairro(_votos(), _secoes())
-    assert por_bairro.set_index('CD_BAIRRO').QT_VOTOS.to_dict() == {'A': 30}
-    assert excl.set_index('motivo_exclusao').QT_VOTOS.to_dict() == {'SEM_COORDENADA': 5, 'SEM_CADASTRO': 7}
-
-def test_votos_por_bairro_fails_when_votes_are_duplicated():
-    s = pd.concat([_secoes(), _secoes().iloc[:1]])  # chave repetida duplicaria votos
-    with pytest.raises(AssertionError):
-        esp.votos_por_bairro(_votos(), s)
-
 GPKG = Path(__file__).resolve().parents[1] / 'data/raw/PR_bairros_CD2022.gpkg'
 
 @pytest.mark.skipif(not GPKG.exists(), reason='malha IBGE não baixada')

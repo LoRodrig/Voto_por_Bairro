@@ -83,7 +83,7 @@ flowchart LR
 
 ## Qualidade e verificação
 
-- **29 testes automatizados** em `tests/` (`pytest`) cobrem o join espacial, a atribuição de setores, o contorno dos bairros, a agregação do Censo e as correlações. Os que dependem das malhas do IBGE são pulados quando o arquivo não está em `data/raw/`, então rodam em um clone limpo.
+- **20 testes automatizados** em `tests/` (`pytest`) cobrem o join espacial, a atribuição de setores, o contorno dos bairros e a agregação do Censo. Os que dependem das malhas do IBGE são pulados quando o arquivo não está em `data/raw/`, então rodam em um clone limpo.
 - **`src/pipeline/validar.py`:** reconcilia os votos por seção, município e unidade (todos os votos de seções cadastradas entram em alguma unidade).
 - **Conferência independente:** cada métrica do Censo e as correlações foram recalculadas por um segundo programa, direto dos arquivos brutos, e coincidem até a 4ª casa decimal (inclusive nos bairros do TSE).
 - **Interface:** testada em Chrome headless em milhares de combinações de controles, sem erro de JavaScript.
@@ -98,23 +98,19 @@ flowchart LR
 ├── src/
 │   ├── pipeline/               processamento dos dados
 │   │   ├── votos_tse.py            votos por seção, bairro e município (TSE)
-│   │   ├── censo_ibge.py           Censo por município e por bairro, Inep, Caged
+│   │   ├── censo_ibge.py           Censo 2022 por bairro e correspondência TSE ↔ IBGE
 │   │   ├── setores.py              Censo por setor e lista das características
 │   │   ├── espacial.py             join espacial, unidades de bairro, contornos
-│   │   ├── analise_bairros.py      correlações por bairro com intervalo
-│   │   ├── escolaridade_sidra.py   escolaridade e desocupação por município (SIDRA)
 │   │   └── validar.py              reconciliações e verificações finais
 │   ├── site/                   geração da página
 │   │   ├── gerar_pagina.py         monta o index.html a partir dos resultados
 │   │   ├── template.html           HTML, CSS e JavaScript da página
 │   │   └── vendor/                 Leaflet, fonte Manrope e ícones (embutidos na página)
-│   └── atlas_nacional/         análise municipal nacional (opcional, fora da página por bairro)
 ├── tests/                      testes automatizados (pytest)
 ├── assets/img/                 capturas usadas neste README
 └── data/
     ├── README.md                   quais arquivos baixar para data/raw/
-    ├── manifesto_fontes.csv        URL, data e SHA-256 dos arquivos baixados do IBGE
-    └── listagens/                  listagens de arquivos consultadas (Caged)
+    └── manifesto_fontes.csv        URL, data e SHA-256 dos arquivos baixados do IBGE
 ```
 
 `data/raw/` (1,8 GB) e `outputs/` **não estão no repositório**; veja `data/README.md`.
@@ -126,17 +122,16 @@ Requisitos: Python 3.12 e `pip install -r requirements.txt` (`pandas`, `numpy`, 
 ```bash
 # (bash) 1) baixe os dados brutos para data/raw/ (lista em data/README.md)
 python src/pipeline/votos_tse.py              # votos por seção
-python -c "import sys; sys.path.insert(0,'src/pipeline'); import censo_ibge; censo_ibge.ibge('bairros')"
+python src/pipeline/censo_ibge.py             # Censo por bairro e correspondência TSE ↔ IBGE
 for c in 4115200 4106902 4113700; do       # Maringá, Curitiba, Londrina
   python src/pipeline/espacial.py --uf PR --municipio $c
 done
-python src/pipeline/analise_bairros.py 4115200 4106902 4113700
 python src/site/gerar_pagina.py               # grava outputs/ e index.html
 python src/pipeline/validar.py
 python -m pytest                             # testes (precisa do requirements-dev.txt)
 ```
 
-Outra cidade do Paraná: rode o `espacial.py` com o código IBGE dela e depois o `analise_bairros.py` e o `gerar_pagina.py`. O nome do projeto está em `NOME_PROJETO`, em `src/site/gerar_pagina.py`.
+Outra cidade do Paraná: rode o `espacial.py` com o código IBGE dela e depois o `gerar_pagina.py`. O nome do projeto está em `NOME_PROJETO`, em `src/site/gerar_pagina.py`.
 
 ## Dados
 
@@ -144,10 +139,9 @@ Outra cidade do Paraná: rode o `espacial.py` com o código IBGE dela e depois o
 |---|---|
 | **TSE** | Votação por seção (1º turno, presidente, 2026), locais de votação com coordenadas, correspondência de códigos TSE ↔ IBGE |
 | **IBGE** | Censo 2022 agregado por bairro e por setor (básico, demografia, domicílios, parentesco, cor ou raça, renda); malhas de bairros e de setores do Paraná |
-| **Inep, MTE/Caged** | Atlas municipal nacional (fora do relatório por bairro) |
 | **OpenStreetMap** | Fundo do mapa, carregado pela internet; sem conexão os bairros continuam visíveis |
 
-Os URLs e os SHA-256 dos arquivos baixados do IBGE estão em `data/manifesto_fontes.csv`. As páginas de catálogo do TSE, IBGE, Inep e MTE, de onde saíram os arquivos, foram consultadas durante o projeto e não são republicadas aqui.
+Os URLs e os SHA-256 dos arquivos baixados do IBGE estão em `data/manifesto_fontes.csv`. As páginas de catálogo do TSE e do IBGE, de onde saíram os arquivos, foram consultadas durante o projeto e não são republicadas aqui.
 
 ## Tecnologia
 

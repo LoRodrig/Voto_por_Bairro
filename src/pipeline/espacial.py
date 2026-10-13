@@ -77,16 +77,6 @@ def ler_malha(gpkg, cd_mun, tabela='PR_bairros_CD2022', col='CD_BAIRRO'):
         out.append((cd, rings))
     return out
 
-def votos_por_bairro(votos, secoes_bairro):
-    """votos: seção x votável; secoes_bairro: chave da seção + CD_BAIRRO + motivo_exclusao.
-    Retorna (votos por CD_BAIRRO x votável, votos excluídos por motivo). Falha se não reconciliar."""
-    j = votos.merge(secoes_bairro[KEY + ['CD_BAIRRO', 'motivo_exclusao']], on=KEY, how='left')
-    j['motivo_exclusao'] = j.motivo_exclusao.fillna('SEM_CADASTRO')
-    por = j[j.motivo_exclusao == ''].groupby(['CD_BAIRRO', 'NR_VOTAVEL'], as_index=False).QT_VOTOS.sum()
-    excl = j[j.motivo_exclusao != ''].groupby('motivo_exclusao', as_index=False).QT_VOTOS.sum()
-    assert por.QT_VOTOS.sum() + excl.QT_VOTOS.sum() == votos.QT_VOTOS.sum(), 'votos não reconciliam'
-    return por, excl
-
 def dissolver(rings, casas=6):
     """Contorno da união de polígonos adjacentes: arestas compartilhadas (a->b e b->a) se cancelam e o resto é encadeado em laços fechados."""
     arestas = set()
@@ -152,9 +142,9 @@ def _setores_por_unidade(c, votos_sec, setores, setor_meta):
 def construir_unidades(cad, votos, bairros, setores, ind_setor, ind_bairro, setor_meta=None):
     """Unidade = bairro IBGE (seção cujo local cai no polígono) ou, senão, bairro cadastrado no TSE ('TSE|<nome>').
     Indicador de unidade TSE = soma dos setores distintos onde ficam seus locais de votação (aproximação).
-    cad: chave da seção + NR_LATITUDE, NR_LONGITUDE, NM_BAIRRO, NR_LOCAL_VOTACAO, NM_LOCAL_VOTACAO.
+    cad: chave da seção + NR_LATITUDE, NR_LONGITUDE, NM_BAIRRO.
     Com setor_meta, a unidade TSE reúne também os setores urbanos sem bairro IBGE mais próximos de seus locais de votação (contorno aproximado).
-    Retorna dict: votos (UNIDADE, TIPO, NR_VOTAVEL, QT_VOTOS), unidades, pontos, setor_unidade, sem_cadastro (votos). Falha se não reconciliar."""
+    Retorna dict: votos (UNIDADE, TIPO, NR_VOTAVEL, QT_VOTOS), unidades, setor_unidade, sem_cadastro (votos). Falha se não reconciliar."""
     c = cad.reset_index(drop=True)
     coords = c[['NR_LATITUDE', 'NR_LONGITUDE']]
     c['bairro'] = atribuir_bairros(coords, bairros).CD_BAIRRO.to_numpy()
@@ -180,9 +170,7 @@ def construir_unidades(cad, votos, bairros, setores, ind_setor, ind_bairro, seto
             ind = agregar_setores(ind_setor.loc[ind_setor.index.intersection(ss)]) if len(ss) else {}
             n = len(ss)
         linhas.append({'UNIDADE': u, 'TIPO': g.TIPO.iloc[0], 'NOME': nomes[u], 'n_setores': n, **ind})
-    pontos = votos.merge(c[KEY + ['UNIDADE', 'TIPO', 'NR_LOCAL_VOTACAO', 'NM_LOCAL_VOTACAO', 'NR_LATITUDE', 'NR_LONGITUDE']], on=KEY)
-    pontos = pontos[pontos.TIPO == 'TSE'].drop(columns='TIPO')
-    return {'votos': v, 'unidades': pd.DataFrame(linhas), 'pontos': pontos, 'setor_unidade': setor_unidade, 'sem_cadastro': sem_cadastro}
+    return {'votos': v, 'unidades': pd.DataFrame(linhas), 'setor_unidade': setor_unidade, 'sem_cadastro': sem_cadastro}
 
 def main():
     ap = argparse.ArgumentParser()
@@ -201,24 +189,17 @@ def main():
     votos = pd.read_parquet(OUT / 'votos_secoes_2026_t1.parquet', columns=KEY + ['NR_VOTAVEL', 'QT_VOTOS'])
     votos = votos[(votos.SG_UF == a.uf) & (votos.CD_MUNICIPIO == cd_tse)]
     malha = ler_malha(ROOT / 'data/raw/PR_bairros_CD2022.gpkg', a.municipio)
-    secoes = atribuir_bairros(cad[KEY + ['NR_LATITUDE', 'NR_LONGITUDE']], malha)
-    por, excl = votos_por_bairro(votos, secoes)
-    por.to_parquet(OUT / f'votos_bairros_ibge_{a.municipio}.parquet', index=False)
-    excl.to_csv(OUT / f'exclusoes_bairros_{a.municipio}.csv', index=False, sep=';')
     total = votos.QT_VOTOS.sum()
-    print(f'{a.municipio}: {100 * por.QT_VOTOS.sum() / total:.2f}% dos votos atribuídos a {por.CD_BAIRRO.nunique()} bairros')
-    print(excl.to_string(index=False))
     # Unidades: bairro IBGE ou, fora dos polígonos, bairro cadastrado no TSE (100% dos votos com cadastro)
     pesq = ROOT / 'data/raw/PR_setores_CD2022.gpkg'
     setores = ler_malha(pesq, a.municipio, tabela='PR_setores_CD2022', col='CD_SETOR')
     ind_setor = importlib.import_module('setores').ler_setores_ind(a.municipio)
     ib = pd.read_parquet(OUT / 'ibge_bairros.parquet').set_index('CD_BAIRRO')
     meta = ler_setores_meta(pesq, a.municipio)
-    r = construir_unidades(cad[KEY + ['NR_LATITUDE', 'NR_LONGITUDE', 'NM_BAIRRO', 'NR_LOCAL_VOTACAO', 'NM_LOCAL_VOTACAO']], votos, malha, setores, ind_setor, ib, setor_meta=meta)
+    r = construir_unidades(cad[KEY + ['NR_LATITUDE', 'NR_LONGITUDE', 'NM_BAIRRO']], votos, malha, setores, ind_setor, ib, setor_meta=meta)
     r['setor_unidade'].to_parquet(OUT / f'setores_unidade_{a.municipio}.parquet', index=False)
     r['votos'].to_parquet(OUT / f'votos_unidades_{a.municipio}.parquet', index=False)
     r['unidades'].to_parquet(OUT / f'unidades_{a.municipio}.parquet', index=False)
-    r['pontos'].to_parquet(OUT / f'pontos_{a.municipio}.parquet', index=False)
     t = r['votos'].groupby('TIPO').QT_VOTOS.sum()
     print(f'unidades: {t.get("IBGE", 0) / total * 100:.2f}% dos votos em bairros IBGE, {t.get("TSE", 0) / total * 100:.2f}% em bairros do TSE, {r["sem_cadastro"]} votos sem cadastro')
 

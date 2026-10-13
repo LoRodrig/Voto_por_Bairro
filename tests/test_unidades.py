@@ -58,8 +58,7 @@ SETORES = [('S1', [quad(0, 0, 1, 1)]), ('S2', [quad(1, 0, 2, 1)]), ('S3', [quad(
 def _cad():
     return pd.DataFrame({'SG_UF': 'PR', 'CD_MUNICIPIO': 1, 'NR_ZONA': 1, 'NR_SECAO': [1, 2, 3, 4],
         'NR_LATITUDE': ['0,5', '0,5', '0,5', ''], 'NR_LONGITUDE': ['0,5', '1,5', '2,5', ''],
-        'NM_BAIRRO': ['CENTRO', 'ZONA 07', 'ZONA 07', 'ZONA 09'],
-        'NR_LOCAL_VOTACAO': [10, 20, 21, 30], 'NM_LOCAL_VOTACAO': ['ESC A', 'ESC B', 'ESC C', 'ESC D']})
+        'NM_BAIRRO': ['CENTRO', 'ZONA 07', 'ZONA 07', 'ZONA 09']})
 
 def _votos():
     v = _cad()[KEY].copy()
@@ -91,12 +90,6 @@ def test_tse_unit_indicators_come_from_distinct_setores_of_its_polling_places():
     assert z7.pct_pretos_pardos == pytest.approx(100 * 50 / 200)  # S2+S3 somados: (5+15+10+20) / 200
     assert pd.isna(u.loc['TSE|ZONA09'].pct_pretos_pardos) and u.loc['TSE|ZONA09'].n_setores == 0
     assert u.loc['A'].pct_pretos_pardos == 10.0
-
-def test_points_only_for_tse_units_with_local_votes():
-    p = esp.construir_unidades(_cad(), _votos(), BAIRROS, SETORES, IND_SETOR, IND_BAIRRO)['pontos']
-    assert set(p.UNIDADE) <= {'TSE|ZONA07'} | {'TSE|ZONA09'} and 'A' not in set(p.UNIDADE)
-    z = p[p.UNIDADE == 'TSE|ZONA07'].groupby('NR_LOCAL_VOTACAO').QT_VOTOS.sum()
-    assert z.to_dict() == {20: 20, 21: 30}
 
 # ---------- setores atribuídos a bairros do TSE (contorno aproximado) ----------
 SETORES5 = SETORES + [('S4', [quad(3, 0, 4, 1)]), ('S5', [quad(4, 0, 5, 1)])]

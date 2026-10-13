@@ -58,10 +58,8 @@ def cidades(cands):
             bairros[u] = {'nome': row.NOME, 'tipo': 'tse', 'n_setores': int(row.n_setores), 'pop': num(row.populacao_2022), **votos(u), 'ind': {k: num(row[k]) for k in IND}}
             rings = [r for cd in su.CD_SETOR[su.UNIDADE == u] for r in setores[cd]]
             polys[u] = [rd(loop) for loop in esp.dissolver(rings)]
-        cor = pd.read_csv(OUT / f'correlacoes_bairros_{m}.csv', sep=';')
         res[m] = {'nome': str(ibn.NM_MUN.iloc[0]), 'pct_ibge': round(100 * tipo.get('IBGE', 0) / tot, 2), 'pct_tse': round(100 * tipo.get('TSE', 0) / tot, 2),
-                  'bairros': bairros, 'poligonos': polys,
-                  'correlacoes': [{k: (num(x) if isinstance(x, float) else x) for k, x in r.items()} for r in cor[cor.candidato_numero.isin(DUELO)].drop(columns=['candidato']).to_dict('records')]}
+                  'bairros': bairros, 'poligonos': polys}
     return res
 
 def main():
@@ -81,10 +79,9 @@ def main():
     html = html.replace('__NOME__', NOME_PROJETO).replace('__SUB__', SUBTITULO)
     html = html.replace('__FAVICON__', base64.b64encode((ic / 'favicon.svg').read_bytes()).decode()).replace('__APPLE__', base64.b64encode((ic / 'apple-touch-icon.png').read_bytes()).decode())
     html = html.replace('__FONT__', font).replace('__DATA__', json.dumps(data, ensure_ascii=False, allow_nan=False, separators=(',', ':')).replace('</', '<\\/'))
-    (OUT / 'relatorio_bairros_parana.html').write_text(html, encoding='utf-8')
     (ROOT / 'index.html').write_text(html, encoding='utf-8')  # raiz da main: fonte do GitHub Pages
     (ROOT / '.nojekyll').write_text('', encoding='utf-8')  # o Pages serve o index.html em vez de renderizar o README
-    print('Relatório criado:', OUT / 'relatorio_bairros_parana.html', f'{len(html) / 1e6:.1f} MB', '| cidades:', ', '.join(v['nome'] for v in cidades_.values()))
+    print('Página criada:', ROOT / 'index.html', f'{len(html) / 1e6:.1f} MB', '| cidades:', ', '.join(v['nome'] for v in cidades_.values()))
 
 if __name__ == '__main__':
     main()

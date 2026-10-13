@@ -19,7 +19,7 @@ def main():
             locais.append(d)
     loc = pd.concat(locais,ignore_index=True)
     for k in KEY[1:]: loc[k] = pd.to_numeric(loc[k],errors='raise').astype('int64')
-    keep = KEY+['NM_BAIRRO','NR_LATITUDE','NR_LONGITUDE','QT_ELEITOR_ELEICAO_FEDERAL','NR_LOCAL_VOTACAO','NM_LOCAL_VOTACAO','DS_ENDERECO']
+    keep = KEY+['NM_BAIRRO','NR_LATITUDE','NR_LONGITUDE']
     loc = loc[keep].drop_duplicates()
     if loc.duplicated(KEY).any():
         loc[loc.duplicated(KEY,False)].to_csv(OUT/'conflitos_locais.csv',index=False)
@@ -47,14 +47,8 @@ def main():
     mun.to_csv(OUT/'votos_municipios_2026_t1.csv',sep=';',index=False,encoding='utf-8-sig')
     uf=mun.groupby(['SG_UF','NR_VOTAVEL','NM_VOTAVEL'],as_index=False).QT_VOTOS.sum()
     uf.to_csv(OUT/'votos_estados_2026_t1.csv',sep=';',index=False,encoding='utf-8-sig')
-    joined=sec.merge(loc[KEY+['NM_BAIRRO']],on=KEY,how='left',validate='many_to_one',indicator=True)
-    joined.NM_BAIRRO=joined.NM_BAIRRO.fillna('SEM CORRESPONDENCIA')
-    bairros=joined.groupby(['SG_UF','CD_MUNICIPIO','NM_MUNICIPIO','NM_BAIRRO','NR_VOTAVEL','NM_VOTAVEL'],dropna=False,as_index=False).QT_VOTOS.sum()
-    bairros.to_csv(OUT/'votos_bairros_local_votacao_2026_t1.csv',sep=';',index=False,encoding='utf-8-sig')
-    local=sec.groupby(['SG_UF','CD_MUNICIPIO','NM_MUNICIPIO','NR_ZONA','NR_LOCAL_VOTACAO','NR_VOTAVEL','NM_VOTAVEL'],as_index=False).QT_VOTOS.sum()
-    local.to_parquet(OUT/'votos_locais_2026_t1.parquet',index=False)
-    assert sec.QT_VOTOS.sum()==mun.QT_VOTOS.sum()==uf.QT_VOTOS.sum()==bairros.QT_VOTOS.sum()
-    audit={'linhas_votos':total_rows,'datas_geracao_votos':sorted(generations),'votos_totais':int(sec.QT_VOTOS.sum()),'municipios_brasil':len(mun[mun.SG_UF!='ZZ'][['SG_UF','CD_MUNICIPIO']].drop_duplicates()),'secoes':len(sec[KEY].drop_duplicates()),'bairros_cadastrais':len(bairros[['SG_UF','CD_MUNICIPIO','NM_BAIRRO']].drop_duplicates()),'votos_sem_correspondencia_cadastro':int(joined.loc[joined._merge!='both','QT_VOTOS'].sum()),'reconciliacao_agregacoes':'OK','votaveis':mun.groupby(['NR_VOTAVEL','NM_VOTAVEL']).QT_VOTOS.sum().reset_index().to_dict('records')}
+    assert sec.QT_VOTOS.sum()==mun.QT_VOTOS.sum()==uf.QT_VOTOS.sum()
+    audit={'linhas_votos':total_rows,'datas_geracao_votos':sorted(generations),'votos_totais':int(sec.QT_VOTOS.sum()),'municipios_brasil':len(mun[mun.SG_UF!='ZZ'][['SG_UF','CD_MUNICIPIO']].drop_duplicates()),'secoes':len(sec[KEY].drop_duplicates()),'reconciliacao_agregacoes':'OK','votaveis':mun.groupby(['NR_VOTAVEL','NM_VOTAVEL']).QT_VOTOS.sum().reset_index().to_dict('records')}
     (OUT/'auditoria_tse.json').write_text(json.dumps(audit,ensure_ascii=False,indent=2),encoding='utf-8')
     print(json.dumps(audit,ensure_ascii=True),flush=True)
 
