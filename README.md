@@ -83,7 +83,7 @@ flowchart LR
 
 ## Qualidade e verificação
 
-- **Testes automatizados** (`pytest`) usados no desenvolvimento cobrem o join espacial, a atribuição de setores, o contorno dos bairros, a agregação do Censo e as correlações; eles não fazem parte deste repositório.
+- **29 testes automatizados** em `tests/` (`pytest`) cobrem o join espacial, a atribuição de setores, o contorno dos bairros, a agregação do Censo e as correlações. Os que dependem das malhas do IBGE são pulados quando o arquivo não está em `data/raw/`, então rodam em um clone limpo.
 - **`src/pipeline/validar.py`:** reconcilia os votos por seção, município e unidade (todos os votos de seções cadastradas entram em alguma unidade).
 - **Conferência independente:** cada métrica do Censo e as correlações foram recalculadas por um segundo programa, direto dos arquivos brutos, e coincidem até a 4ª casa decimal (inclusive nos bairros do TSE).
 - **Interface:** testada em Chrome headless em milhares de combinações de controles, sem erro de JavaScript.
@@ -94,7 +94,7 @@ flowchart LR
 .
 ├── index.html                  a página (publicada pelo GitHub Pages, a partir da raiz da main)
 ├── .nojekyll                   faz o Pages servir o index.html, e não o README
-├── requirements.txt
+├── requirements.txt            dependências (requirements-dev.txt acrescenta o pytest)
 ├── src/
 │   ├── pipeline/               processamento dos dados
 │   │   ├── votos_tse.py            votos por seção, bairro e município (TSE)
@@ -109,6 +109,7 @@ flowchart LR
 │   │   ├── template.html           HTML, CSS e JavaScript da página
 │   │   └── vendor/                 Leaflet, fonte Manrope e ícones (embutidos na página)
 │   └── atlas_nacional/         análise municipal nacional (opcional, fora da página por bairro)
+├── tests/                      testes automatizados (pytest)
 ├── assets/img/                 capturas usadas neste README
 └── data/
     ├── README.md                   quais arquivos baixar para data/raw/
@@ -120,7 +121,7 @@ flowchart LR
 
 ## Reproduzir
 
-Requisitos: Python 3.12 e `pip install -r requirements.txt` (`pandas`, `numpy`, `pyarrow`). O `geopandas` **não é necessário**: o join espacial usa só `sqlite3` e `numpy` (lê o GeoPackage direto).
+Requisitos: Python 3.12 e `pip install -r requirements.txt` (`pandas`, `numpy`, `pyarrow`); para os testes, `pip install -r requirements-dev.txt`. O `geopandas` **não é necessário**: o join espacial usa só `sqlite3` e `numpy` (lê o GeoPackage direto).
 
 ```bash
 # (bash) 1) baixe os dados brutos para data/raw/ (lista em data/README.md)
@@ -132,6 +133,7 @@ done
 python src/pipeline/analise_bairros.py 4115200 4106902 4113700
 python src/site/gerar_pagina.py               # grava outputs/ e index.html
 python src/pipeline/validar.py
+python -m pytest                             # testes (precisa do requirements-dev.txt)
 ```
 
 Outra cidade do Paraná: rode o `espacial.py` com o código IBGE dela e depois o `analise_bairros.py` e o `gerar_pagina.py`. O nome do projeto está em `NOME_PROJETO`, em `src/site/gerar_pagina.py`.

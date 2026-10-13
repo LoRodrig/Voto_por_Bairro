@@ -8,7 +8,6 @@ __pycache__/
 .superpowers/
 skills-lock.json
 image.png
-tests/
 .pytest_cache/
 docs/superpowers/
 .vscode/
