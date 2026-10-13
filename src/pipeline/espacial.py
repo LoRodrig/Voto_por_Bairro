@@ -10,14 +10,14 @@ import numpy as np
 import pandas as pd
 
 KEY = ['SG_UF', 'CD_MUNICIPIO', 'NR_ZONA', 'NR_SECAO']
-ROOT = Path(__file__).resolve().parents[1]
+ROOT = Path(__file__).resolve().parents[2]
 OUT = ROOT / 'outputs'
 
 def _norm(v):
     return re.sub('[^A-Z0-9]', '', unicodedata.normalize('NFKD', str(v)).encode('ascii', 'ignore').decode().upper())
 
 def agregar_setores(df):
-    return importlib.import_module('09_setores').agregar(df)
+    return importlib.import_module('setores').agregar(df)
 
 def parse_coord(s):
     """Texto com vírgula decimal -> float; vazio, -1 ou inválido -> NaN."""
@@ -211,7 +211,7 @@ def main():
     # Unidades: bairro IBGE ou, fora dos polígonos, bairro cadastrado no TSE (100% dos votos com cadastro)
     pesq = ROOT / 'data/raw/PR_setores_CD2022.gpkg'
     setores = ler_malha(pesq, a.municipio, tabela='PR_setores_CD2022', col='CD_SETOR')
-    ind_setor = importlib.import_module('09_setores').ler_setores_ind(a.municipio)
+    ind_setor = importlib.import_module('setores').ler_setores_ind(a.municipio)
     ib = pd.read_parquet(OUT / 'ibge_bairros.parquet').set_index('CD_BAIRRO')
     meta = ler_setores_meta(pesq, a.municipio)
     r = construir_unidades(cad[KEY + ['NR_LATITUDE', 'NR_LONGITUDE', 'NM_BAIRRO', 'NR_LOCAL_VOTACAO', 'NM_LOCAL_VOTACAO']], votos, malha, setores, ind_setor, ib, setor_meta=meta)

@@ -6,7 +6,7 @@ from pathlib import Path
 import numpy as np
 import pandas as pd
 
-OUT = Path(__file__).resolve().parents[1] / 'outputs'
+OUT = Path(__file__).resolve().parents[2] / 'outputs'
 API = 'https://servicodados.ibge.gov.br/api/v3/agregados/{t}/periodos/2022/variaveis/{v}?localidades=N6[N3[41]]&classificacao={c}'
 # 6580: variável 1641, força de trabalho (32386) e desocupada (32446); sexo e idade = total
 TRABALHO = dict(t=6580, v=1641, c='629[32386,32446]|2[6794]|58[95253]', cls='629')

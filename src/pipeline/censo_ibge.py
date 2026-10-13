@@ -4,7 +4,7 @@ import json, re, unicodedata, zipfile
 import numpy as np
 import pandas as pd
 
-ROOT=Path(__file__).resolve().parents[1]
+ROOT=Path(__file__).resolve().parents[2]
 RAW, OUT=ROOT/'data/raw',ROOT/'outputs'
 
 def norm(v):

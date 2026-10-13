@@ -4,7 +4,7 @@ from pathlib import Path
 import numpy as np
 import pandas as pd
 
-RAW = Path(__file__).resolve().parents[1] / 'data/raw'
+RAW = Path(__file__).resolve().parents[2] / 'data/raw'
 # Características do Censo 2022 usadas por bairro (ordem e rótulos); fonte única para 07 e 08
 INDICADORES = {
     'renda_media_responsavel_com_renda_2022': 'Renda média do responsável (R$)',

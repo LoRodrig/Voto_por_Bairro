@@ -16,4 +16,4 @@ docs/superpowers/
 Thumbs.db
 desktop.ini
 *.log
-data/catalogs/*.html
+data/catalogs/

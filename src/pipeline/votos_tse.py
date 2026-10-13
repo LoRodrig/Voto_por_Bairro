@@ -4,7 +4,7 @@ import json
 import zipfile
 import pandas as pd
 
-ROOT = Path(__file__).resolve().parents[1]
+ROOT = Path(__file__).resolve().parents[2]
 RAW, OUT = ROOT/'data/raw', ROOT/'outputs'
 OUT.mkdir(exist_ok=True)
 KEY = ['SG_UF','CD_MUNICIPIO','NR_ZONA','NR_SECAO']

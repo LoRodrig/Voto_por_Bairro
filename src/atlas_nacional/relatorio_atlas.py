@@ -4,17 +4,17 @@ import importlib, sys
 import numpy as np
 import pandas as pd
 
-ROOT=Path(__file__).resolve().parents[1]
+ROOT=Path(__file__).resolve().parents[2]
 OUT=ROOT/'outputs'
-sys.path.insert(0,str(ROOT/'scripts'))
+sys.path.insert(0,str(ROOT/'src'/'pipeline'))
 IND_BAIRRO=['renda_media_responsavel_com_renda_2022','pct_analfabetismo_15mais','pct_60mais','pct_15a29','densidade_hab_km2','pct_domicilios_rede_agua','pct_domicilios_rede_esgoto_pluvial']
 
 def num(v):
     return None if v is None or (isinstance(v,float) and not np.isfinite(v)) else float(v)
 
 def bairros_ibge(cands):
-    """Bairros IBGE com votos por join espacial (06_bairros_espacial) e correlações (07), uma entrada por cidade gerada."""
-    esp=importlib.import_module('06_bairros_espacial')
+    """Bairros IBGE com votos por join espacial (espacial) e correlações (07), uma entrada por cidade gerada."""
+    esp=importlib.import_module('espacial')
     ib=pd.read_parquet(OUT/'ibge_bairros.parquet').set_index('CD_BAIRRO')
     res={}
     for f in sorted(OUT.glob('votos_bairros_ibge_*.parquet')):
@@ -58,8 +58,8 @@ def main():
     findings='<p>Para os dois candidatos com maior votação nacional, nesta extração:</p><div class="scroll"><table><thead><tr><th>Candidato</th><th>Indicador</th><th>Municípios</th><th>Spearman</th><th>Ranks ajustados por UF</th></tr></thead><tbody>'
     findings+=''.join('<tr>'+''.join('<td>'+html.escape(str(v))+'</td>' for v in r)+'</tr>' for r in rows)
     findings+='</tbody></table></div><p>A relação com renda e analfabetismo é mais acentuada no conjunto nacional do que após retirar as diferenças médias entre estados. A associação com o saldo mensal de emprego é próxima de zero para ambos. Esses resultados descrevem territórios; não caracterizam o voto de indivíduos.</p>'
-    template=(ROOT/'scripts/relatorio_template.html').read_text(encoding='utf-8')
-    leaflet=ROOT/'scripts/vendor/leaflet'
+    template=(ROOT/'src/atlas_nacional/template_atlas.html').read_text(encoding='utf-8')
+    leaflet=ROOT/'src/site/vendor/leaflet'
     template=template.replace('__LEAFLET_CSS__',(leaflet/'leaflet.css').read_text(encoding='utf-8')).replace('__LEAFLET_JS__',(leaflet/'leaflet.js').read_text(encoding='utf-8'))
     result=template.replace('__DATA__',json.dumps(data,ensure_ascii=False,allow_nan=False,separators=(',',':')).replace('</','<\\/')).replace('__FINDINGS__',json.dumps(findings,ensure_ascii=False))
     (OUT/'relatorio_eleicoes_2026.html').write_text(result,encoding='utf-8')

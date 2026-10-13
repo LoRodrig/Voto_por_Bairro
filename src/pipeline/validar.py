@@ -5,7 +5,7 @@ import sys
 from pathlib import Path
 import pandas as pd
 
-ROOT = Path(__file__).resolve().parents[1]
+ROOT = Path(__file__).resolve().parents[2]
 OUT = ROOT / 'outputs'
 MIN_COBERTURA = 90.0
 # Cobertura abaixo do mínimo só é aceita com explicação registrada aqui.

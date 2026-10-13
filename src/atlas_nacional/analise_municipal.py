@@ -4,7 +4,7 @@ import json, html, math
 import numpy as np
 import pandas as pd
 
-ROOT=Path(__file__).resolve().parents[1]
+ROOT=Path(__file__).resolve().parents[2]
 OUT=ROOT/'outputs'
 INDICATORS={
  'renda_media_responsavel_com_renda_2022':'Renda média do responsável com renda (R$, 2022)',

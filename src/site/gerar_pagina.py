@@ -6,10 +6,10 @@ import sys
 import pandas as pd
 from pathlib import Path
 
-ROOT = Path(__file__).resolve().parents[1]
+ROOT = Path(__file__).resolve().parents[2]
 OUT = ROOT / 'outputs'
-sys.path.insert(0, str(ROOT / 'scripts'))
-INDICADORES = importlib.import_module('09_setores').INDICADORES
+sys.path.insert(0, str(ROOT / 'src' / 'pipeline'))
+INDICADORES = importlib.import_module('setores').INDICADORES
 
 IND = list(INDICADORES)
 
@@ -24,7 +24,7 @@ def num(v):
 
 def cidades(cands):
     """Uma entrada por cidade: bairros IBGE e bairros TSE (contorno aproximado por setores), votos, nulos e correlações."""
-    esp = importlib.import_module('06_bairros_espacial')
+    esp = importlib.import_module('espacial')
     ib = pd.read_parquet(OUT / 'ibge_bairros.parquet')
     rd = lambda loop: [[round(la, 5), round(lo, 5)] for lo, la in loop]
     res = {}
@@ -70,14 +70,14 @@ def main():
     cands = list(cand)
     cidades_ = cidades(cands)
     if not cidades_:
-        raise SystemExit('Nenhuma cidade gerada: rode scripts/06_bairros_espacial.py --uf PR --municipio <código IBGE>.')
+        raise SystemExit('Nenhuma cidade gerada: rode src/pipeline/espacial.py --uf PR --municipio <código IBGE>.')
     data = {'nomes': NOMES, 'cands': DUELO, 'ind_ordem': IND,
             'indicadores': dict(INDICADORES), 'cidades': cidades_}
-    tpl = (ROOT / 'scripts/relatorio_bairros_template.html').read_text(encoding='utf-8')
-    lf = ROOT / 'scripts/vendor/leaflet'
+    tpl = (ROOT / 'src/site/template.html').read_text(encoding='utf-8')
+    lf = ROOT / 'src/site/vendor/leaflet'
     html = tpl.replace('__LEAFLET_CSS__', (lf / 'leaflet.css').read_text(encoding='utf-8')).replace('__LEAFLET_JS__', (lf / 'leaflet.js').read_text(encoding='utf-8'))
-    font = base64.b64encode((ROOT / 'scripts/vendor/fonts/manrope-latin-wght.woff2').read_bytes()).decode()
-    ic = ROOT / 'scripts/vendor/icons'
+    font = base64.b64encode((ROOT / 'src/site/vendor/fonts/manrope-latin-wght.woff2').read_bytes()).decode()
+    ic = ROOT / 'src/site/vendor/icons'
     html = html.replace('__NOME__', NOME_PROJETO).replace('__SUB__', SUBTITULO)
     html = html.replace('__FAVICON__', base64.b64encode((ic / 'favicon.svg').read_bytes()).decode()).replace('__APPLE__', base64.b64encode((ic / 'apple-touch-icon.png').read_bytes()).decode())
     html = html.replace('__FONT__', font).replace('__DATA__', json.dumps(data, ensure_ascii=False, allow_nan=False, separators=(',', ':')).replace('</', '<\\/'))

@@ -10,7 +10,7 @@
 
 **[▶ Abrir a página](https://lorodrig.github.io/Voto_por_Bairro/)** · Maringá · Curitiba · Londrina
 
-<img src="docs/img/mapa.png" alt="Mapa de Maringá por bairro, com placar e legenda" width="880">
+<img src="assets/img/mapa.png" alt="Mapa de Maringá por bairro, com placar e legenda" width="880">
 
 </div>
 
@@ -38,9 +38,9 @@ Uma página única (um arquivo HTML, sem servidor) que responde a perguntas como
 | 🔗 **Links compartilháveis** | Cidade, visão, aba e bairro ficam no endereço. |
 
 <div align="center">
-<img src="docs/img/perfil.png" alt="Aba Perfil: grupos de bairros e ranking de características" width="640">
+<img src="assets/img/perfil.png" alt="Aba Perfil: grupos de bairros e ranking de características" width="640">
 &nbsp;&nbsp;
-<img src="docs/img/celular.png" alt="Versão para celular" width="220">
+<img src="assets/img/celular.png" alt="Versão para celular" width="220">
 </div>
 
 ## Como funciona
@@ -84,49 +84,57 @@ flowchart LR
 ## Qualidade e verificação
 
 - **Testes automatizados** (`pytest`) usados no desenvolvimento cobrem o join espacial, a atribuição de setores, o contorno dos bairros, a agregação do Censo e as correlações; eles não fazem parte deste repositório.
-- **`scripts/05_validar.py`:** reconcilia os votos por seção, município e unidade (todos os votos de seções cadastradas entram em alguma unidade).
+- **`src/pipeline/validar.py`:** reconcilia os votos por seção, município e unidade (todos os votos de seções cadastradas entram em alguma unidade).
 - **Conferência independente:** cada métrica do Censo e as correlações foram recalculadas por um segundo programa, direto dos arquivos brutos, e coincidem até a 4ª casa decimal (inclusive nos bairros do TSE).
 - **Interface:** testada em Chrome headless em milhares de combinações de controles, sem erro de JavaScript.
 
 ## Estrutura
 
 ```
-index.html              a página (publicada pelo GitHub Pages, a partir da raiz da main)
-docs/img/               capturas usadas neste README
-scripts/
-  01_tse.py             votos por seção, bairro e município
-  02_integrar.py        Censo por município e por bairro, Inep, Caged
-  02b_sidra_parana.py   escolaridade e desocupação por município (SIDRA)
-  03_analisar.py        análise municipal (atlas nacional)
-  04_relatorio.py       atlas nacional por município (opcional)
-  05_validar.py         reconciliações e verificações finais
-  06_bairros_espacial.py  join espacial, unidades de bairro, contornos
-  07_analise_parana.py  correlações por bairro com intervalo
-  08_relatorio_bairros.py  gera a página única
-  09_setores.py         Censo por setor e lista das características
-  vendor/               Leaflet, fonte Manrope e ícones (embutidos na página)
-data/catalogs/          manifesto das fontes (URL, data e SHA-256) e listagens de arquivos
+.
+├── index.html                  a página (publicada pelo GitHub Pages, a partir da raiz da main)
+├── .nojekyll                   faz o Pages servir o index.html, e não o README
+├── requirements.txt
+├── src/
+│   ├── pipeline/               processamento dos dados
+│   │   ├── votos_tse.py            votos por seção, bairro e município (TSE)
+│   │   ├── censo_ibge.py           Censo por município e por bairro, Inep, Caged
+│   │   ├── setores.py              Censo por setor e lista das características
+│   │   ├── espacial.py             join espacial, unidades de bairro, contornos
+│   │   ├── analise_bairros.py      correlações por bairro com intervalo
+│   │   ├── escolaridade_sidra.py   escolaridade e desocupação por município (SIDRA)
+│   │   └── validar.py              reconciliações e verificações finais
+│   ├── site/                   geração da página
+│   │   ├── gerar_pagina.py         monta o index.html a partir dos resultados
+│   │   ├── template.html           HTML, CSS e JavaScript da página
+│   │   └── vendor/                 Leaflet, fonte Manrope e ícones (embutidos na página)
+│   └── atlas_nacional/         análise municipal nacional (opcional, fora da página por bairro)
+├── assets/img/                 capturas usadas neste README
+└── data/
+    ├── README.md                   quais arquivos baixar para data/raw/
+    ├── manifesto_fontes.csv        URL, data e SHA-256 dos arquivos baixados do IBGE
+    └── listagens/                  listagens de arquivos consultadas (Caged)
 ```
 
-`data/raw/` (1,8 GB) e `outputs/` **não estão no repositório**; veja *Dados*.
+`data/raw/` (1,8 GB) e `outputs/` **não estão no repositório**; veja `data/README.md`.
 
 ## Reproduzir
 
-Requisitos: Python 3.12 com `pandas`, `numpy` e `pyarrow`. O `geopandas` **não é necessário**: o join espacial usa só `sqlite3` e `numpy` (lê o GeoPackage direto).
+Requisitos: Python 3.12 e `pip install -r requirements.txt` (`pandas`, `numpy`, `pyarrow`). O `geopandas` **não é necessário**: o join espacial usa só `sqlite3` e `numpy` (lê o GeoPackage direto).
 
 ```bash
-# (bash) 1) baixe os dados brutos para data/raw/ (veja "Dados")
-python scripts/01_tse.py                      # votos por seção
-python -c "import sys; sys.path.insert(0,'scripts'); import importlib; importlib.import_module('02_integrar').ibge('bairros')"
+# (bash) 1) baixe os dados brutos para data/raw/ (lista em data/README.md)
+python src/pipeline/votos_tse.py              # votos por seção
+python -c "import sys; sys.path.insert(0,'src/pipeline'); import censo_ibge; censo_ibge.ibge('bairros')"
 for c in 4115200 4106902 4113700; do       # Maringá, Curitiba, Londrina
-  python scripts/06_bairros_espacial.py --uf PR --municipio $c
+  python src/pipeline/espacial.py --uf PR --municipio $c
 done
-python scripts/07_analise_parana.py 4115200 4106902 4113700
-python scripts/08_relatorio_bairros.py        # grava outputs/ e index.html
-python scripts/05_validar.py
+python src/pipeline/analise_bairros.py 4115200 4106902 4113700
+python src/site/gerar_pagina.py               # grava outputs/ e index.html
+python src/pipeline/validar.py
 ```
 
-Outra cidade do Paraná: rode o `06_bairros_espacial.py` com o código IBGE dela e depois o `07` e o `08`. O nome do projeto está em `NOME_PROJETO`, em `scripts/08_relatorio_bairros.py`.
+Outra cidade do Paraná: rode o `espacial.py` com o código IBGE dela e depois o `analise_bairros.py` e o `gerar_pagina.py`. O nome do projeto está em `NOME_PROJETO`, em `src/site/gerar_pagina.py`.
 
 ## Dados
 
@@ -137,7 +145,7 @@ Outra cidade do Paraná: rode o `06_bairros_espacial.py` com o código IBGE dela
 | **Inep, MTE/Caged** | Atlas municipal nacional (fora do relatório por bairro) |
 | **OpenStreetMap** | Fundo do mapa, carregado pela internet; sem conexão os bairros continuam visíveis |
 
-Os URLs e os SHA-256 dos arquivos baixados do IBGE estão em `data/catalogs/manifesto_fontes.csv`. As páginas de catálogo do TSE, IBGE, Inep e MTE, de onde saíram os arquivos, foram consultadas durante o projeto e não são republicadas aqui.
+Os URLs e os SHA-256 dos arquivos baixados do IBGE estão em `data/manifesto_fontes.csv`. As páginas de catálogo do TSE, IBGE, Inep e MTE, de onde saíram os arquivos, foram consultadas durante o projeto e não são republicadas aqui.
 
 ## Tecnologia
 

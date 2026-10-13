@@ -6,7 +6,8 @@ import numpy as np
 import pandas as pd
 
 sys.path.insert(0, str(Path(__file__).resolve().parent))
-IND_BAIRRO = importlib.import_module('09_setores').INDICADORES
+sys.path.insert(0, str(Path(__file__).resolve().parents[1] / 'atlas_nacional'))
+IND_BAIRRO = importlib.import_module('setores').INDICADORES
 MIN_BAIRROS = 20
 
 def _spearman(x, y):
@@ -43,9 +44,9 @@ NOVOS = {'taxa_desocupacao_2022': 'Taxa de desocupação, 14+ (%, Censo 2022; n�
 
 def main(municipios=('4115200',)):
     import json
-    OUT = Path(__file__).resolve().parents[1] / 'outputs'
+    OUT = Path(__file__).resolve().parents[2] / 'outputs'
     cand = {v['NR_VOTAVEL']: v['NM_VOTAVEL'] for v in json.loads((OUT / 'auditoria_tse.json').read_text(encoding='utf-8'))['votaveis'] if v['NR_VOTAVEL'] not in (95, 96)}
-    a03 = importlib.import_module('03_analisar')
+    a03 = importlib.import_module('analise_municipal')
     a03.INDICATORS.update(NOVOS)
     mun = pd.read_parquet(OUT / 'analise_municipal_ampla.parquet').merge(pd.read_parquet(OUT / 'sidra_pr_municipios.parquet'), on='CD_MUN', how='left', validate='one_to_one')
     pr = mun[(mun.SG_UF == 'PR') & (mun.alerta_limite_territorial == '')]

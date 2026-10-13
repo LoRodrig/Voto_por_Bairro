@@ -43,7 +43,7 @@ function chart(){let c=$('candidato').value,i=$('indicador').value,scope=$('uf')
 const PAL=['#ffffcc','#ffeda0','#fed976','#feb24c','#fd8d3c','#f4623a'];let MAP=null,GROUP=null;
 function colorOf(p,mn,mx){if(p==null)return '#cfd5d9';const k=mx>mn?Math.min(5,Math.floor(6*(p-mn)/(mx-mn))):0;return PAL[k];}
 function ibge(){const sel=$('ibgecity');if(!sel.options.length){Object.entries(D.bairros_ibge||{}).forEach(([k,v])=>sel.add(new Option(v.nome+' / PR',k)));}
-const c=$('candidato').value,i=$('indicador').value,k=sel.value,B=(D.bairros_ibge||{})[k];if(!B){$('ibgecov').textContent='Nenhuma cidade gerada: rode scripts/06_bairros_espacial.py.';return;}
+const c=$('candidato').value,i=$('indicador').value,k=sel.value,B=(D.bairros_ibge||{})[k];if(!B){$('ibgecov').textContent='Nenhuma cidade gerada: rode src/pipeline/espacial.py.';return;}
 const idx=D.bairro_candidatos.indexOf(+c);$('ibgecov').textContent=fmt(B.cobertura_votos_pct,1)+'% dos votos de '+B.nome+' foram atribuídos a bairros IBGE. O restante está em locais fora dos polígonos de bairro do IBGE.';
 const rows=Object.entries(B.bairros).map(([cd,b])=>({cd,nome:b.nome,total:b.total,p:b.total?100*b.v[idx]/b.total:null,ind:b.ind[i]??null}));const ps=rows.filter(r=>r.p!=null).map(r=>r.p),mn=Math.min(...ps),mx=Math.max(...ps);
 $('ibgelegend').innerHTML='<span>'+fmt(mn,1)+'%</span>'+PAL.map(x=>`<i style="background:${x}"></i>`).join('')+'<span>'+fmt(mx,1)+'% ('+esc(D.candidatos[c])+')</span><i style="background:#cfd5d9"></i><span>sem votos atribuídos</span>';
