@@ -1,0 +1,12 @@
+08-08-25  09:52AM       <DIR>          2020
+08-08-25  09:52AM       <DIR>          2021
+08-12-25  11:01AM       <DIR>          2022
+08-12-25  10:56AM       <DIR>          2023
+08-12-25  10:54AM       <DIR>          2024
+01-29-26  02:31PM       <DIR>          2025
+09-29-26  02:42PM       <DIR>          2026
+06-05-20  05:49PM               345046 Comunicado - Grupamento de Atividades Econômicas.pdf
+08-31-22  11:59AM               293931 Layout Não-identificado Novo Caged Movimentação.xlsx
+08-08-25  09:53AM       <DIR>          Legado
+11-30-21  03:56PM                 1084 Leia-me.txt
+11-30-21  03:56PM                83781 Sobre o Novo Caged.pdf

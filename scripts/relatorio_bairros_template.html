@@ -1,0 +1,369 @@
+<!doctype html>
+<html lang="pt-BR"><head><meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<meta name="theme-color" content="#f3f4f8"><meta name="color-scheme" content="light">
+<meta name="description" content="__NOME__: como Lula e Flávio Bolsonaro foram votados, bairro a bairro, no Paraná (presidente, 1º turno de 2026), com dados do Censo 2022.">
+<title>__NOME__ · Paraná 2026</title>
+<link rel="icon" type="image/svg+xml" href="data:image/svg+xml;base64,__FAVICON__">
+<link rel="apple-touch-icon" href="data:image/png;base64,__APPLE__">
+<style>
+@font-face{font-family:"Manrope";src:url(data:font/woff2;base64,__FONT__) format("woff2");font-weight:200 800;font-display:swap}
+:root{--paper:#f3f4f8;--surface:#fff;--ink:#0f1424;--muted:#5a6275;--faint:#8a92a6;--line:#e4e7ef;--soft:#eef0f6;
+ --r13:#d73a3a;--r13-ink:#a92828;--r13-soft:#fdeeed;--b22:#2f6fd0;--b22-ink:#1f4f9e;--b22-soft:#ebf2fd;--radius:20px;
+ --c:var(--r13);--c-ink:var(--r13-ink);--c-soft:var(--r13-soft);--shadow:0 1px 2px rgba(15,20,36,.05),0 10px 30px rgba(15,20,36,.05);color-scheme:light}
+body[data-c="22"]{--c:var(--b22);--c-ink:var(--b22-ink);--c-soft:var(--b22-soft)}
+body[data-c="dois"]{--c:#5a4fcf;--c-ink:#4338a8;--c-soft:#eeecfc}
+body[data-c="nulos"]{--c:#c47a12;--c-ink:#8f5707;--c-soft:#fdf1dc}
+*{box-sizing:border-box}html{scroll-behavior:smooth;-webkit-text-size-adjust:100%}
+body{margin:0;color:var(--ink);font:400 15px/1.55 "Manrope",system-ui,"Segoe UI",sans-serif;-webkit-font-smoothing:antialiased;touch-action:manipulation;-webkit-tap-highlight-color:transparent;
+ background:radial-gradient(900px 460px at -5% -12%,rgba(215,58,58,.11),transparent 62%),radial-gradient(900px 460px at 105% -12%,rgba(47,111,208,.13),transparent 62%),var(--paper)}
+h1,h2,h3{text-wrap:balance;margin:0}p{margin:0 0 8px}
+.skip{position:absolute;left:12px;top:-60px;background:var(--ink);color:#fff;padding:8px 14px;border-radius:8px;z-index:3000}.skip:focus{top:12px}
+:focus-visible{outline:3px solid var(--c);outline-offset:2px}
+.wrap{max-width:1480px;margin:0 auto;padding:0 max(3vw,16px)}
+[hidden]{display:none!important}
+/* topo */
+.top{position:sticky;top:0;z-index:1200;background:rgba(243,244,248,.82);-webkit-backdrop-filter:saturate(1.4) blur(14px);backdrop-filter:saturate(1.4) blur(14px);border-bottom:1px solid rgba(15,20,36,.06)}
+.top .wrap{display:flex;align-items:center;justify-content:space-between;gap:12px;padding-top:10px;padding-bottom:10px}
+.brand{display:flex;align-items:center;gap:12px;min-width:0}.brand img,.brand svg{flex:none;width:38px;height:38px}
+.brand b{display:block;font-size:17px;font-weight:800;letter-spacing:-.3px;line-height:1.15}.brand span{display:block;font-size:12.5px;color:var(--muted);white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+label.f{display:flex;flex-direction:column;gap:4px;font-size:12px;font-weight:700;color:var(--muted)}
+select,input[type=search]{font:inherit;font-weight:600;color:var(--ink);background-color:var(--surface);border:1px solid var(--line);border-radius:12px;padding:10px 12px;min-height:44px;min-width:180px;max-width:100%}
+select:hover,input:hover{border-color:#c6cbd9}
+.top label.f{flex-direction:row;align-items:center;gap:8px}.top select{min-width:150px}
+/* placar */
+.hero{background:var(--surface);border:1px solid var(--line);border-radius:22px;padding:clamp(18px,2.4vw,30px) clamp(18px,2.6vw,34px);margin:14px 0 14px;box-shadow:var(--shadow)}
+.hero h1{font-size:15px;font-weight:700;color:var(--muted);margin-bottom:12px}.hero h1 b{color:var(--ink);font-weight:800}
+.score{display:grid;grid-template-columns:1fr 1fr;gap:clamp(12px,3vw,24px)}
+.cand{min-width:0}.cand .who{display:flex;align-items:center;gap:8px;font-weight:700;color:var(--muted)}.cand .sw{width:10px;height:10px;border-radius:50%;flex:none}
+.cand .big{font-size:clamp(38px,6.2vw,76px);font-weight:800;letter-spacing:-.045em;line-height:1.02;margin:4px 0 2px;font-variant-numeric:tabular-nums}
+.cand.c13 .big{color:var(--r13)}.cand.c22 .big{color:var(--b22);text-align:right}.cand.c22 .who{justify-content:flex-end;text-align:right}.cand.c22 .sub{text-align:right}
+.cand .sub{font-size:13px;color:var(--muted)}
+.split{display:flex;height:14px;border-radius:99px;overflow:hidden;background:var(--soft);margin:16px 0 10px;gap:3px}.split i{display:block;height:100%;min-width:3px;transition:width .35s ease}
+.split .a{background:var(--r13);border-radius:99px 0 0 99px}.split .b{background:var(--b22);border-radius:0 99px 99px 0;margin-left:auto}
+.leads{display:flex;justify-content:space-between;gap:6px 14px;flex-wrap:wrap;font-size:13px;color:var(--muted)}.leads b{color:var(--ink)}
+/* controles */
+.toolbar{display:flex;flex-wrap:wrap;gap:12px 20px;align-items:flex-end;margin:0 0 14px}
+.tl{font-size:12px;font-weight:700;color:var(--muted);margin-bottom:5px}
+.seg{display:inline-flex;max-width:100%;background:rgba(15,20,36,.06);border-radius:14px;padding:4px;gap:4px;overflow-x:auto;scrollbar-width:none}.seg::-webkit-scrollbar{display:none}
+.seg button{flex:none;font:inherit;font-weight:700;font-size:14px;color:var(--muted);background:transparent;border:0;border-radius:10px;padding:0 14px;min-height:40px;cursor:pointer;display:flex;align-items:center;gap:8px;transition:background-color .15s ease,color .15s ease,box-shadow .15s ease}
+.seg button:hover{color:var(--ink)}.seg button[aria-pressed=true]{background:var(--surface);color:var(--ink);box-shadow:0 1px 3px rgba(15,20,36,.16)}
+.seg .d{width:10px;height:10px;border-radius:50%}
+/* grade e cartões */
+.grid{display:grid;grid-template-columns:minmax(0,1fr) 380px;gap:16px;align-items:start;padding-bottom:48px}
+.card{background:var(--surface);border:1px solid var(--line);border-radius:var(--radius);padding:clamp(14px,2vw,22px);min-width:0;box-shadow:var(--shadow)}
+.tabs{display:flex;gap:4px;background:var(--soft);padding:4px;border-radius:14px;overflow-x:auto;scrollbar-width:none;margin:0 0 16px}.tabs::-webkit-scrollbar{display:none}
+.tabs button{flex:1 0 auto;font:inherit;font-weight:700;color:var(--muted);background:none;border:0;border-radius:10px;padding:0 16px;min-height:40px;cursor:pointer;white-space:nowrap;transition:background-color .15s ease,color .15s ease,box-shadow .15s ease}
+.tabs button:hover{color:var(--ink)}.tabs button[aria-selected=true]{background:var(--surface);color:var(--c-ink);box-shadow:0 1px 3px rgba(15,20,36,.16)}
+#mapa{height:clamp(340px,62vh,640px);border-radius:16px;border:1px solid var(--line);overflow:hidden;background:var(--soft)}
+.legend{display:flex;align-items:center;gap:6px 8px;flex-wrap:wrap;font-size:13px;color:var(--muted);margin:0 0 10px}.legend i{display:inline-block;width:28px;height:11px;border-radius:3px;box-shadow:inset 0 0 0 1px rgba(15,20,36,.07)}.legend .gap{margin-left:10px}.legend i.tse{border:1.5px dashed #3a4252;background:#fff}
+.legend .hint{margin-left:6px;font-weight:700;color:var(--ink)}
+.sw-btn{display:inline-block;width:32px;height:20px;border-radius:6px;border:1px solid rgba(15,20,36,.18);padding:0;cursor:pointer;transition:box-shadow .12s ease}.sw-btn:hover{box-shadow:0 0 0 2px var(--c)}.sw-btn.on{box-shadow:0 0 0 2px #fff,0 0 0 4px var(--ink)}
+.note{font-size:13px;color:var(--muted)}
+.info{display:flex;gap:10px;align-items:flex-start;background:var(--soft);border-radius:14px;padding:11px 14px;font-size:13.5px;margin-bottom:12px}
+details.how{margin:0 0 12px;background:var(--soft);border-radius:14px;padding:10px 14px;font-size:13.5px}details.how summary{cursor:pointer;font-weight:700;min-height:24px}details.how ul{margin:8px 0 0;padding-left:18px}details.how li{margin:4px 0}
+/* tabela */
+.scroll{overflow:auto;max-height:640px;border:1px solid var(--line);border-radius:14px;overscroll-behavior:contain}
+table{border-collapse:collapse;width:100%;font-size:13px}th,td{padding:9px 12px;border-bottom:1px solid var(--line);text-align:left;white-space:nowrap}
+th{position:sticky;top:0;background:var(--surface);z-index:1}th button{all:unset;cursor:pointer;font-weight:700;color:var(--ink)}th button:focus-visible{outline:3px solid var(--c);outline-offset:2px}
+td.num,th.num{text-align:right;font-variant-numeric:tabular-nums}tbody tr{cursor:pointer}tbody tr:hover td{background:var(--soft)}tr.sel td{background:var(--c-soft)}
+.pill{display:inline-block;font-size:11.5px;font-weight:700;padding:2px 8px;border-radius:99px;background:var(--soft);color:var(--muted)}.pill.t{background:#fff4dc;color:#7a5200}
+#chart{width:100%;height:auto;display:block}#chart text{font:600 12px "Manrope",system-ui;fill:var(--muted)}
+#tip{position:fixed;pointer-events:none;background:var(--ink);color:#fff;border-radius:12px;padding:9px 12px;font-size:13px;display:none;z-index:2000;max-width:280px;box-shadow:0 10px 30px rgba(15,20,36,.3)}#tip b{font-size:14px}#tip .note{color:#b9c0d0}
+/* painel do bairro */
+.panel h2{font-size:21px;font-weight:800;letter-spacing:-.4px}
+.phead{display:flex;justify-content:space-between;align-items:flex-start;gap:10px}
+.xbtn{flex:none;font:inherit;font-weight:700;font-size:13px;background:var(--soft);color:var(--ink);border:0;border-radius:10px;min-height:40px;padding:0 14px;cursor:pointer}.xbtn:hover{background:#e3e6ef}
+.duel{margin:14px 0 4px}.duel .row{display:grid;grid-template-columns:auto 1fr auto;gap:10px;align-items:center;margin:8px 0}
+.duel .nm{font-weight:700;font-size:14px}.duel .bar{height:12px;background:var(--soft);border-radius:99px;overflow:hidden}.duel .bar span{display:block;height:100%;border-radius:99px;transition:width .35s ease}
+.duel .pc{font-weight:800;font-variant-numeric:tabular-nums;min-width:86px;text-align:right;line-height:1.2}.duel .pc small{display:block;font-size:11.5px;font-weight:600;color:var(--muted)}
+.chip{display:inline-block;font-weight:800;font-size:13px;padding:4px 11px;border-radius:99px}.chip.a{background:var(--r13-soft);color:var(--r13-ink)}.chip.b{background:var(--b22-soft);color:var(--b22-ink)}
+.kv{padding:11px 0;border-top:1px solid var(--line)}.kv .l{font-size:12.5px;color:var(--muted);font-weight:600}.kv .v{font-size:20px;font-weight:800;font-variant-numeric:tabular-nums;letter-spacing:-.3px}.kv .r{font-size:12.5px;color:var(--muted)}
+.ref{height:8px;background:var(--soft);border-radius:99px;position:relative;margin:7px 0 5px}.ref span{position:absolute;top:-4px;width:6px;height:16px;border-radius:3px;background:var(--c)}.ref em{position:absolute;top:-1px;width:2px;height:10px;background:var(--faint);border-radius:1px}
+.empty{color:var(--muted);padding:12px 2px}
+button.act{font:inherit;font-weight:700;font-size:13px;background:var(--surface);color:var(--ink);border:1px solid var(--line);border-radius:12px;padding:0 14px;min-height:42px;cursor:pointer;transition:background-color .15s ease,border-color .15s ease}button.act:hover{background:var(--soft);border-color:#c6cbd9}
+/* perfil */
+.chk{display:flex;gap:10px;align-items:flex-start;font-weight:600;font-size:14px;cursor:pointer}.chk input{margin-top:3px;width:18px;height:18px;accent-color:var(--c);flex:none}
+.gp,.rk{display:grid;gap:12px;align-items:center;padding:10px 0;border-top:1px solid var(--line)}
+.gp{grid-template-columns:minmax(150px,230px) 1fr 240px}.rk{grid-template-columns:minmax(170px,300px) 1fr 200px}
+.gl small,.gv small,.rk .rl small{display:block;font-size:12px;color:var(--muted);font-weight:600}.rk .rl{font-size:13.5px;font-weight:700}.rk .rl small{font-weight:600}
+.gt,.rt{position:relative;height:14px;background:var(--soft);border-radius:99px}.gt span,.rt span{position:absolute;top:0;height:100%;border-radius:99px}.gt .zero,.rt .zero{position:absolute;left:50%;top:-3px;width:2px;height:20px;background:#9aa2b1;border-radius:1px}
+.rv{font-weight:800;font-variant-numeric:tabular-nums}.rv small{display:block;font-weight:600;font-size:11.5px;color:var(--muted)}
+.glink{all:unset;cursor:pointer;color:var(--c-ink);font-weight:700;font-size:12.5px;margin-top:3px;display:inline-block;text-decoration:underline;text-underline-offset:2px}.glink:focus-visible{outline:3px solid var(--c);outline-offset:2px}
+.gwrap{border-top:1px solid var(--line)}.gwrap .gp{border-top:0}.glist{padding:2px 0 14px}
+/* sobre */
+.about details{border:1px solid var(--line);border-radius:14px;padding:12px 16px;margin:0 0 10px;background:var(--surface)}.about summary{cursor:pointer;font-weight:800;font-size:16px;min-height:26px}
+.about ul,.about ol{margin:10px 0 2px;padding-left:20px}.about li{margin:8px 0;max-width:78ch}
+@media(prefers-reduced-motion:reduce){*{transition:none!important;scroll-behavior:auto!important}}
+/* telas médias e pequenas */
+@media(max-width:1100px){
+ .grid{grid-template-columns:minmax(0,1fr)}
+ .panel.has-sel{position:fixed;left:8px;right:8px;bottom:calc(8px + env(safe-area-inset-bottom));max-height:60vh;overflow:auto;z-index:1500;border-radius:22px;box-shadow:0 -10px 50px rgba(15,20,36,.32);overscroll-behavior:contain}
+ .panel.has-sel .phead{position:sticky;top:-4px;background:var(--surface);padding:4px 0 8px;z-index:2}
+ body.sheet{padding-bottom:62vh}
+}
+@media(min-width:1101px){.panel{position:sticky;top:78px;max-height:calc(100vh - 96px);overflow:auto}}
+.tag{display:inline-block;font-size:11px;font-weight:800;padding:2px 8px;border-radius:99px;margin-right:6px}.tag.ok{background:var(--c-soft);color:var(--c-ink)}.tag.wk{background:var(--soft);color:var(--muted)}.tag.no{background:var(--soft);color:var(--faint)}.cs{padding:9px 0;border-top:1px solid var(--line)}.cs .cl{display:flex;justify-content:space-between;gap:10px;font-size:13px;color:var(--muted);font-weight:600}.cs .cl b{color:var(--ink);font-size:15px;font-variant-numeric:tabular-nums;white-space:nowrap}.cs .r{font-size:12px;color:var(--faint)}
+.rkc{grid-column:1/-1;font-size:12px;color:var(--muted);margin-top:-4px}
+@media(max-width:520px){#segc{display:grid;grid-template-columns:1fr 1fr}#segt{display:flex;flex-wrap:wrap;overflow:visible}.chips{gap:5px}.chip2{font-size:11.5px;padding:3px 9px}}
+.ctrls{display:flex;flex-wrap:wrap;gap:12px 20px;align-items:flex-end;margin-bottom:12px}
+@media(max-width:900px){.hgrid{grid-template-columns:1fr 1fr}.hcity{grid-column:1/-1}.insight{max-width:none}}
+@media(max-width:720px){
+ .ctrls>*{width:100%}.ctrls select{width:100%}
+ .brand span{display:none}.top .wrap{padding-top:8px;padding-bottom:8px}.top select{min-width:0;max-width:46vw}.top label.f span.lb{display:none}
+ .hero{border-radius:18px}.cand .big{font-size:clamp(30px,10.5vw,46px)}.cand .who{font-size:12.5px}
+ .toolbar>div,.toolbar>label{width:100%}.toolbar select{width:100%}.seg{display:flex;width:100%}.seg button{flex:1 0 auto}
+ .gp{grid-template-columns:1fr;gap:6px}.rk{grid-template-columns:1fr;gap:6px}.rv{display:flex;gap:8px;align-items:baseline}.rv small{display:inline}
+ #mapa{height:clamp(320px,58vh,520px)}
+ .legend .gap{margin-left:0}
+ th,td{padding:8px 10px}
+}
+@media(max-width:400px){.cand .who{font-size:12px}.chip2{font-size:12px}.card{padding:14px 12px}}
+__LEAFLET_CSS__
+.leaflet-container{font-family:"Manrope",system-ui,sans-serif}
+</style></head><body data-c="dois">
+<a class="skip" href="#conteudo">Ir para o conteúdo</a>
+<header class="top"><div class="wrap">
+<div class="brand"><img src="data:image/svg+xml;base64,__FAVICON__" width="38" height="38" alt=""><div><b translate="no">__NOME__</b><span>__SUB__</span></div></div>
+<label class="f" for="city"><span class="lb">Cidade</span><select id="city" name="cidade" autocomplete="off"></select></label>
+</div></header>
+<div class="wrap">
+<section class="hero" aria-labelledby="h-city" id="hero"></section>
+<div class="toolbar" role="group" aria-label="Controles">
+<div><div class="tl" id="l-cand">Mostrar</div><div class="seg" role="group" aria-labelledby="l-cand" id="segc"></div></div>
+</div>
+<main id="conteudo" class="grid">
+<section class="card" aria-label="Visualizações">
+<div class="tabs" role="tablist" id="tabs" aria-label="Visualização"></div>
+<div id="p-mapa" role="tabpanel"><div class="info" id="cov" hidden></div>
+<details class="how"><summary>Como ler este mapa</summary><ul>
+<li>Cada área é um bairro. Toque ou clique para ver os detalhes.</li>
+<li>Tracejado: bairro do TSE, com desenho estimado. Cinza: bairro do IBGE sem local de votação.</li>
+<li>O voto é de onde a pessoa vota, não de onde mora.</li></ul></details>
+<div class="info" id="gfiltro" hidden style="justify-content:space-between;align-items:center;flex-wrap:wrap"></div>
+<div class="legend" id="legend"></div><div id="mapa" role="region" aria-label="Mapa de bairros"></div><p class="note" id="mapnote" style="margin-top:10px"></p></div>
+<div id="p-grafico" role="tabpanel" hidden>
+<div class="ctrls"><label class="f" for="ind">Característica analisada (Censo 2022)<select id="ind" name="caracteristica" autocomplete="off"></select></label><div><div class="tl" id="l-tipo">Bairros usados nos cálculos</div><div class="seg" role="group" aria-labelledby="l-tipo" id="segt"></div></div></div>
+<label class="chk"><input type="checkbox" id="compat" name="compat"> Só bairros com votos compatíveis com os moradores (0,5 a 1,2 votos por morador)</label><p class="note" id="compatnote" style="margin-top:4px"></p>
+<h2 id="qtitle" style="font-size:18px;margin-top:16px"></h2><p class="note" id="qsub"></p><div id="grupos"></div>
+<h2 id="rtitle" style="font-size:18px;margin-top:26px"></h2><p class="note" id="rsub"></p><div id="rank"></div>
+<details class="how" style="margin-top:22px"><summary>Ver cada bairro (dispersão)</summary><h3 id="chtitle" style="margin-top:10px"></h3><p class="note" id="chsub"></p><svg id="chart" viewBox="0 0 780 460" role="img" aria-label="Dispersão dos bairros"></svg></details>
+</div>
+<div id="p-tabela" role="tabpanel" hidden><div style="display:flex;gap:12px;align-items:flex-end;margin-bottom:10px;flex-wrap:wrap"><label class="f" for="q">Buscar bairro<input id="q" name="busca" type="search" autocomplete="off" spellcheck="false" placeholder="Nome do bairro…"></label><button class="act" id="csv" type="button">Exportar CSV</button></div><p class="note" id="tcount"></p><div class="scroll"><table><thead id="thead"></thead><tbody id="tbody"></tbody></table></div></div>
+<div id="p-sobre" role="tabpanel" class="about" hidden>
+<details open><summary>Como ler</summary><ul>
+<li><b>Voto:</b> presidente, 1º turno 2026 (TSE). Lula e Flávio em % dos votos válidos; nulos e brancos em % dos votos totais.</li>
+<li><b>Onde conta:</b> o voto é de onde fica a urna, não de onde a pessoa mora. “Votos por morador” muito alto ou baixo sugere eleitores de outros bairros.</li>
+<li><b>Bairro do TSE:</b> onde o IBGE não desenha o bairro, vale o do TSE, com contorno e Censo estimados (setores censitários sem bairro, atribuídos à urna mais próxima).</li>
+<li><b>Censo 2022:</b> só o que o IBGE publica por bairro. Renda = média do responsável com renda (não é renda familiar nem per capita). Pretos e pardos = % dos moradores que se declararam pretos ou pardos. Apartamento = % dos domicílios que são apartamentos. Mulheres responsáveis = % dos domicílios em que a pessoa responsável é mulher.</li></ul></details>
+<details><summary>Memória de cálculo</summary>
+<p class="note"><b>Todos os valores se referem a bairros, não a pessoas.</b></p>
+<ol>
+<li><b>% do candidato</b> = votos ÷ votos válidos do bairro. <b>Diferença</b> = % Lula − % Flávio (não substitui olhar os outros candidatos).</li>
+<li><b>Nulos e brancos</b> = (nulos + brancos) ÷ votos totais. <b>Votos por morador</b> = votos totais ÷ moradores (Censo 2022); 0,5 a 1,2 é um filtro exploratório.</li>
+<li><b>Correlação (Spearman, ρ):</b> cada valor vira sua posição no ranking dos bairros, e se correlacionam as posições da característica com as da diferença Lula − Flávio. De −1 a +1: positivo, Lula vai melhor onde a característica é maior; negativo, Flávio. Mínimo de 20 bairros; cada bairro pesa igual.</li>
+<li><b>IC 95%:</b> 300 sorteios de bairros com reposição; percentis 2,5% e 97,5%. Bairros vizinhos se parecem, então é apoio exploratório, não teste definitivo.</li>
+<li><b>Selos:</b> “Mais consistente” = IC sem o zero e |ρ| ≥ 0,40 (limite desta página); “Fraca” = IC sem o zero e |ρ| menor; “Sem padrão” = IC com o zero.</li>
+<li><b>Checagem:</b> ρ com todos os bairros, só com votos compatíveis, ponderado por votos válidos (peso votos) e ponderado pela população do Censo 2022 (peso população). Nessas duas últimas, bairros maiores pesam mais.</li>
+<li><b>Grupos:</b> 5 grupos com o mesmo número de bairros; % do grupo = soma dos votos ÷ soma dos votos válidos (bairros maiores pesam mais). Valores conferidos por um segundo programa, até a 4ª casa.</li></ol></details>
+<details><summary>Limites e fontes</summary><ul>
+<li><b>Associação entre áreas e votação, não comportamento individual.</b> Bairros com mais renda darem vantagem a um candidato não significa que pessoas de maior renda votaram nele. Não prova causa.</li>
+<li>Poucos bairros e urnas que recebem eleitores de outros bairros enfraquecem as relações. Os bairros do TSE são a parte mais frágil.</li>
+<li>Cor ou raça é autodeclarada no Censo. A associação é entre áreas, não descreve eleitores individuais e não prova causa.</li>
+<li>Serve para achar padrões e levantar hipóteses; leia com cautela onde as urnas concentram eleitores de outras áreas.</li>
+<li>Fontes: TSE, IBGE (Censo 2022 e malhas) e OpenStreetMap.</li></ul></details>
+</div>
+</section>
+<aside class="card panel" id="panel" aria-live="polite" aria-label="Detalhe do bairro"></aside>
+</main></div>
+<div id="tip" role="tooltip"></div>
+<script>__LEAFLET_JS__</script>
+<script id="dados" type="application/json">__DATA__</script>
+<script>
+const D=JSON.parse(document.getElementById('dados').textContent),$=id=>document.getElementById(id);
+const fmt=(v,n=0)=>v==null||!Number.isFinite(+v)?'—':(+v).toLocaleString('pt-BR',{maximumFractionDigits:n,minimumFractionDigits:n});
+const indFmt=(k,v)=>v==null?'—':k==='renda_media_responsavel_com_renda_2022'?'R$ '+fmt(v,0):k==='densidade_hab_km2'?fmt(v,0)+' hab/km²':fmt(v,1)+'%';
+const LOG=['renda_media_responsavel_com_renda_2022','densidade_hab_km2'];
+const COR={13:['#fde3e1','#f9c3bf','#f4a29c','#ec7c75','#de5a56','#c93e3e'],22:['#e0ebfb','#bcd4f6','#97bcef','#6f9fe6','#4a82d8','#2f65bf']};
+const NUL=['#fff1d6','#fde0a6','#f9cb73','#f2b04a','#e08e2b','#c46f14'];
+const DIV=['#2f65bf','#6f9fe6','#bcd4f6','#e8e8e4','#f9c3bf','#ec7c75','#c93e3e'];
+const MAIN={13:'#d73a3a',22:'#2f6fd0',nulos:'#d98a1f'},NODATA='#cfd3db',NM=D.nomes;
+const TABS=[['mapa','Mapa'],['grafico','Perfil'],['tabela','Tabela'],['sobre','Sobre']];
+const VIEWS=[['13','Lula'],['22','Flávio'],['dois','Os dois'],['nulos','Nulos e brancos']];
+const S={city:Object.keys(D.cidades)[0],view:'dois',ind:D.ind_ordem[0],sel:null,tab:'mapa',sort:{k:'m',dir:-1},q:'',faixas:new Set(),compat:false,grupo:null,gab:new Set(),gmap:{},tipo:'todos'};
+const SORT0={13:'p13',22:'p22',dois:'m',nulos:'pnb'};
+const el=(t,a={},...c)=>{const e=document.createElement(t);for(const[k,v]of Object.entries(a)){if(k==='class')e.className=v;else if(k.startsWith('on'))e.addEventListener(k.slice(2),v);else e.setAttribute(k,v)}c.flat().forEach(x=>e.append(x));return e};
+const median=a=>{a=a.filter(x=>x!=null).sort((x,y)=>x-y);if(!a.length)return null;const m=a.length>>1;return a.length%2?a[m]:(a[m-1]+a[m])/2};
+const city=()=>D.cidades[S.city];
+const baseTipo=R=>R.filter(r=>S.tipo==='todos'||r.tipo===S.tipo),compativel=r=>r.raz!=null&&r.raz>=.5&&r.raz<=1.2;
+const analiticos=R=>baseTipo(R).filter(r=>!S.compat||compativel(r));
+const nm=c=>el('span',{translate:'no'},NM[c]);
+function rows(){return Object.entries(city().bairros).map(([cd,b])=>{const t=b.total,tt=t==null?null:t+b.nulos+b.brancos,p13=t?100*b.v[0]/t:null,p22=t?100*b.v[1]/t:null;
+ return{cd,nome:b.nome,tipo:b.tipo,n:b.n_setores,total:t,p13,p22,v13:t?b.v[0]:null,v22:t?b.v[1]:null,m:t?p13-p22:null,nulos:b.nulos,brancos:b.brancos,pn:tt?100*b.nulos/tt:null,pb:tt?100*b.brancos/tt:null,pnb:tt?100*(b.nulos+b.brancos)/tt:null,tt,pop:b.pop,raz:b.pop&&tt!=null?tt/b.pop:null,ind:b.ind};});}
+function totals(){let a=0,b=0,t=0,n=0,br=0,l13=0,l22=0;Object.values(city().bairros).forEach(x=>{if(!x.total)return;a+=x.v[0];b+=x.v[1];t+=x.total;n+=x.nulos;br+=x.brancos;if(x.v[0]>x.v[1])l13++;else if(x.v[1]>x.v[0])l22++;});const tt=t+n+br;return{p13:t?100*a/t:null,p22:t?100*b/t:null,v13:a,v22:b,t,n,br,pn:tt?100*n/tt:null,pb:tt?100*br/tt:null,l13,l22};}
+function showTip(html,ev){const t=$('tip');t.replaceChildren(...html);t.style.display='block';t.style.left=Math.min(ev.clientX+14,innerWidth-300)+'px';t.style.top=(ev.clientY+14)+'px';}
+const hideTip=()=>{$('tip').style.display='none'};
+const tipoTxt=r=>r.tipo==='tse'?'Bairro do TSE · contorno e características aproximados':'Bairro IBGE';
+const tipNodes=(r,ind)=>[el('div',{},el('b',{translate:'no'},r.nome)),el('div',{class:'note'},tipoTxt(r)),
+ ...(r.total==null?[el('div',{},'Sem votos atribuídos')]:[el('div',{style:'color:#ff9d9a;font-weight:800'},'Lula '+fmt(r.p13,1)+'% · '+fmt(r.v13)+' votos'),el('div',{style:'color:#9cc2ff;font-weight:800'},'Flávio '+fmt(r.p22,1)+'% · '+fmt(r.v22)+' votos')]),
+ ...(r.total==null?[]:[el('div',{class:'note'},'Nulos '+fmt(r.pn,1)+'% ('+fmt(r.nulos)+' votos) · brancos '+fmt(r.pb,1)+'% ('+fmt(r.brancos)+' votos)')]),...(ind?[el('div',{class:'note'},D.indicadores[S.ind]+': '+indFmt(S.ind,r.ind[S.ind]))]:[])];
+function select(cd){S.sel=S.sel===cd?null:cd;render();}
+/* cor do mapa conforme a visão */
+function scale(R){const lv=R.filter(r=>r.total!=null);
+ if(S.view==='dois'){const M=Math.max(1,...lv.map(r=>Math.abs(r.m))),w=2*M/7,bin=m=>Math.max(0,Math.min(6,Math.floor((m+M)/w)));
+  return{kind:'dois',M,colors:DIV,idx:r=>r.m==null?-1:bin(r.m),color:r=>r.m==null?NODATA:DIV[bin(r.m)],
+   label:i=>{const a=-M+i*w,b=a+w;return i===3?'quase empate (diferença de até '+fmt(M/7,0)+' pontos)':i<3?'Flávio na frente por '+fmt(-b,0)+' a '+fmt(-a,0)+' pontos':'Lula na frente por '+fmt(a,0)+' a '+fmt(b,0)+' pontos';}};}
+ const key=S.view==='nulos'?'pnb':S.view==='13'?'p13':'p22',ramp=S.view==='nulos'?NUL:COR[S.view],ps=lv.map(r=>r[key]),mn=Math.min(...ps),mx=Math.max(...ps),w=(mx-mn)/6,bin=p=>mx>mn?Math.min(5,Math.floor(6*(p-mn)/(mx-mn))):0;
+ return{kind:'um',mn,mx,colors:ramp,idx:r=>r[key]==null?-1:bin(r[key]),color:r=>r[key]==null?NODATA:ramp[bin(r[key])],label:i=>fmt(mn+i*w,1)+'% a '+fmt(mn+(i+1)*w,1)+'%'};}
+function toggleFaixa(i){if(S.faixas.has(i))S.faixas.delete(i);else S.faixas.add(i);render();}
+function visiveis(){const R=rows(),sc=scale(R);return R.filter(r=>(!S.faixas.size||S.faixas.has(sc.idx(r)))&&(!S.grupo||S.grupo.set.has(r.cd)));}
+function faixaStats(R,sc,i){const g=R.filter(r=>sc.idx(r)===i),s=k=>g.reduce((a,r)=>a+(r[k]||0),0);return{n:g.length,nu:s('nulos'),br:s('brancos'),v13:s('v13'),v22:s('v22')};}
+function drawLegend(sc,shown,total,R){const L=[],sw=(i,c,txt,cls)=>{
+ const b=el('button',{type:'button',class:'sw-btn'+(cls?' '+cls:'')+(S.faixas.has(i)?' on':''),'aria-pressed':String(S.faixas.has(i)),'aria-label':'Mostrar só: '+txt,style:'background:'+c,onclick:()=>toggleFaixa(i)});
+ const dica=e=>{const s=faixaStats(R,sc,i),ln=[el('div',{},el('b',{},txt)),el('div',{class:'note'},fmt(s.n)+(s.n===1?' bairro':' bairros')+' · clique para filtrar')];
+  if(i>=0&&s.n){if(S.view==='nulos')ln.push(el('div',{},'Total de nulos: '+fmt(s.nu)+' votos'),el('div',{},'Total de brancos: '+fmt(s.br)+' votos'));
+   else ln.push(el('div',{style:'color:#ff9d9a;font-weight:800'},'Lula: '+fmt(s.v13)+' votos'),el('div',{style:'color:#9cc2ff;font-weight:800'},'Flávio: '+fmt(s.v22)+' votos'),el('div',{class:'note'},'Nulos: '+fmt(s.nu)+' · brancos: '+fmt(s.br)));}
+  showTip(ln,e)};
+ b.addEventListener('pointermove',dica);b.addEventListener('pointerleave',hideTip);b.addEventListener('focus',()=>{const r=b.getBoundingClientRect();dica({clientX:r.x,clientY:r.y+22})});b.addEventListener('blur',hideTip);
+ b.addEventListener('pointerdown',e=>{if(e.pointerType==='touch'){dica(e);setTimeout(hideTip,2500)}});return b;};
+ if(sc.kind==='dois')L.push(el('span',{},'Flávio'),...sc.colors.map((c,i)=>sw(i,c,sc.label(i))),el('span',{},'Lula · cor forte = diferença maior'));
+ else L.push(el('span',{},fmt(sc.mn,1)+'%'),...sc.colors.map((c,i)=>sw(i,c,sc.label(i))),el('span',{},fmt(sc.mx,1)+'% '+(S.view==='nulos'?'de nulos e brancos':'de votos em '+NM[S.view])));
+ L.push(sw(-1,NODATA,'bairros do IBGE sem local de votação','gap'),el('span',{},'Sem votos'),el('i',{class:'gap tse'}),el('span',{},'Bairro do TSE (estimado)'));
+ L.push(el('span',{class:'hint'},S.faixas.size?'Mostrando '+fmt(shown)+' de '+fmt(total)+' bairros.':'Clique numa cor para filtrar'));
+ if(S.faixas.size)L.push(el('button',{class:'act',type:'button',onclick:()=>{S.faixas=new Set();render()}},'Mostrar todas as faixas'));
+ $('legend').replaceChildren(...L);}
+let MAP=null,GROUP=null;
+function drawMap(R,fit){if(typeof L==='undefined'){$('mapa').replaceChildren(el('p',{class:'empty'},'Biblioteca de mapa indisponível.'));return;}
+if(!MAP){MAP=L.map('mapa');L.tileLayer('https://tile.openstreetmap.org/{z}/{x}/{y}.png',{maxZoom:19,attribution:'&copy; contribuidores do <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a>'}).addTo(MAP);GROUP=L.featureGroup().addTo(MAP);}
+const B=city(),sc=scale(R),mostra=r=>(!S.faixas.size||S.faixas.has(sc.idx(r)))&&(!S.grupo||S.grupo.set.has(r.cd));drawLegend(sc,R.filter(mostra).length,R.length,R);GROUP.clearLayers();let selL=null;
+R.forEach(r=>{const rings=B.poligonos[r.cd];if(!rings||!mostra(r))return;const s=r.cd===S.sel,tse=r.tipo==='tse';
+ const p=L.polygon(rings,{color:s?'#131722':(tse?'#3a4252':'#6b7385'),weight:s?3:(tse?1.8:1),dashArray:tse&&!s?'5 4':null,fillColor:sc.color(r),fillOpacity:.64}).addTo(GROUP);
+ p.on('click',()=>select(r.cd));p.on('mousemove',e=>showTip(tipNodes(r),e.originalEvent));p.on('mouseout',hideTip);if(s)selL=p;});
+if(selL)selL.bringToFront();
+if(fit||!MAP._fitted){MAP.fitBounds(GROUP.getBounds());MAP._fitted=true;}setTimeout(()=>MAP.invalidateSize(),0);}
+/* associação ENTRE BAIRROS (não entre pessoas): Spearman + intervalo de 95% por reamostragem determinística */
+function rank(a){const o=a.map((v,i)=>[v,i]).sort((x,y)=>x[0]-y[0]),r=new Array(a.length);let i=0;while(i<o.length){let j=i;while(j+1<o.length&&o[j+1][0]===o[i][0])j++;const m=(i+j)/2+1;for(let k=i;k<=j;k++)r[o[k][1]]=m;i=j+1;}return r;}
+function pear(x,y){const n=x.length,mx=x.reduce((a,b)=>a+b,0)/n,my=y.reduce((a,b)=>a+b,0)/n;let sxy=0,sxx=0,syy=0;for(let i=0;i<n;i++){const dx=x[i]-mx,dy=y[i]-my;sxy+=dx*dy;sxx+=dx*dx;syy+=dy*dy;}return sxx&&syy?sxy/Math.sqrt(sxx*syy):null;}
+const spear=(x,y)=>pear(rank(x),rank(y));
+function wspear(x,y,w){const rx=rank(x),ry=rank(y),sw=w.reduce((a,b)=>a+b,0);let mx=0,my=0;for(let i=0;i<x.length;i++){mx+=w[i]*rx[i];my+=w[i]*ry[i];}mx/=sw;my/=sw;let sxy=0,sxx=0,syy=0;for(let i=0;i<x.length;i++){const dx=rx[i]-mx,dy=ry[i]-my;sxy+=w[i]*dx*dy;sxx+=w[i]*dx*dx;syy+=w[i]*dy*dy;}return sxx&&syy?sxy/Math.sqrt(sxx*syy):null;}
+function assoc(R,k,yk,boot=true){const z=R.filter(r=>r.total!=null&&r.ind[k]!=null&&r[yk]!=null);if(z.length<20)return{n:z.length,rho:null};
+ const x=z.map(r=>r.ind[k]),y=z.map(r=>r[yk]),rho=spear(x,y),rhoW=wspear(x,y,z.map(r=>r.total)),pops=z.map(r=>r.pop||0),rhoP=pops.some(v=>v>0)?wspear(x,y,pops):null;if(!boot)return{n:z.length,rho,rhoW,rhoP};
+ let s=12345;const rnd=()=>(s=(s*1664525+1013904223)>>>0)/4294967296,b=[];
+ for(let t=0;t<300;t++){const xi=[],yi=[];for(let i=0;i<z.length;i++){const j=Math.floor(rnd()*z.length);xi.push(x[j]);yi.push(y[j]);}const q=spear(xi,yi);if(q!=null)b.push(q);}
+ b.sort((p,q)=>p-q);return{n:z.length,rho,rhoW,rhoP,lo:b[Math.floor(b.length*.025)],hi:b[Math.floor(b.length*.975)]};}
+const YDEF=()=>S.view==='dois'?{key:'m',nome:'a diferença entre Lula e Flávio'}:S.view==='nulos'?{key:'pnb',nome:'o percentual de nulos e brancos'}:{key:S.view==='13'?'p13':'p22',nome:'o percentual de '+NM[S.view]};
+function seriesDef(){return S.view==='dois'?[['m','dois']]:S.view==='nulos'?[['pnb','nulos']]:[[S.view==='13'?'p13':'p22',+S.view]];}
+const NSV='http://www.w3.org/2000/svg',sv=(t,a)=>{const e=document.createElementNS(NSV,t);for(const[q,v]of Object.entries(a))e.setAttribute(q,v);return e};
+/* 1) voto por grupos de bairros (quintos da característica), com a lista dos bairros de cada grupo */
+function formarGrupos(R){const k=S.ind,z=R.filter(r=>r.total!=null&&r.ind[k]!=null).sort((a,b)=>a.ind[k]-b.ind[k]),G=5;return z.length<10?[]:[...Array(G)].map((_,g)=>z.slice(Math.floor(g*z.length/G),Math.floor((g+1)*z.length/G)));}
+function gruposMap(R){const m={};formarGrupos(R).forEach((g,i)=>g.forEach(r=>{m[r.cd]=i+1}));return m;}
+function drawGFiltro(){const b=$('gfiltro');b.hidden=!S.grupo;if(S.grupo)b.replaceChildren(el('span',{},'Mostrando só os '+fmt(S.grupo.set.size)+' bairros do '+S.grupo.nome+'.'),el('button',{class:'act',type:'button',onclick:()=>{S.grupo=null;if(MAP)MAP._fitted=false;render();}},'Mostrar todos'));}
+function listaGrupo(g,gi,nome){const k=S.ind;
+ return el('div',{class:'glist'},el('div',{class:'scroll',style:'max-height:340px'},el('table',{},
+  el('thead',{},el('tr',{},el('th',{},'Bairro'),el('th',{},'Tipo'),el('th',{class:'num'},D.indicadores[k]),el('th',{class:'num'},'Lula %'),el('th',{class:'num'},'Flávio %'),el('th',{class:'num'},'Votos válidos'))),
+  el('tbody',{},...g.map(r=>el('tr',{class:r.cd===S.sel?'sel':'',tabindex:0,onclick:()=>select(r.cd),onkeydown:e=>{if(e.key==='Enter')select(r.cd)}},el('td',{translate:'no'},r.nome),el('td',{},el('span',{class:'pill'+(r.tipo==='tse'?' t':'')},r.tipo==='tse'?'TSE':'IBGE')),el('td',{class:'num'},indFmt(k,r.ind[k])),el('td',{class:'num'},fmt(r.p13,1)),el('td',{class:'num'},fmt(r.p22,1)),el('td',{class:'num'},fmt(r.total))))))),
+  el('button',{class:'act',type:'button',style:'margin-top:8px',onclick:()=>{S.grupo={nome,set:new Set(g.map(r=>r.cd))};if(MAP)MAP._fitted=false;setTab('mapa');render();}},'Ver só estes '+fmt(g.length)+' bairros no mapa'));}
+function drawGrupos(R){const k=S.ind,box=$('grupos'),gs=formarGrupos(R);
+ $('qtitle').textContent='Voto por grupo de bairros';
+ if(!gs.length){box.replaceChildren(el('p',{class:'empty'},'Poucos bairros com dados para formar grupos.'));$('qsub').textContent='';return;}
+ const G=gs.length,sum=(a,f)=>a.reduce((s,r)=>s+(f(r)||0),0);
+ const info=gs.map(g=>{const t=sum(g,r=>r.total),a=sum(g,r=>r.v13),b=sum(g,r=>r.v22),tt=sum(g,r=>r.tt),nb=sum(g,r=>r.nulos+r.brancos);return{g,n:g.length,lo:g[0].ind[k],hi:g[g.length-1].ind[k],p13:100*a/t,p22:100*b/t,m:100*(a-b)/t,v13:a,v22:b,pnb:100*nb/tt,nb};});
+ const lead=m=>(m>=0?'Lula':'Flávio')+' à frente por '+fmt(Math.abs(m),1)+' pts',nomeG=gi=>'Grupo '+(gi+1)+(gi===0?' (menor)':gi===G-1?' (maior)':'');
+ $('qsub').textContent=D.indicadores[k]+': 5 grupos iguais, do menor ao maior.'+(S.view==='dois'?' Menor grupo: '+lead(info[0].m)+'. Maior: '+lead(info[G-1].m)+'.':'');
+ const val=i=>S.view==='dois'?Math.abs(i.m):S.view==='nulos'?i.pnb:(S.view==='13'?i.p13:i.p22),mx=Math.max(1,...info.map(val));
+ box.replaceChildren(...info.map((i,gi)=>{const list=listaGrupo(i.g,gi,nomeG(gi)+' em '+D.indicadores[k]),aberto=S.gab.has(gi);list.hidden=!aberto;
+  const btn=el('button',{type:'button',class:'glink','aria-expanded':String(aberto)},aberto?'Esconder os bairros ▴':'Ver os '+fmt(i.n)+' bairros ▾');
+  btn.addEventListener('click',()=>{const abrir=list.hidden;list.hidden=!abrir;if(abrir)S.gab.add(gi);else S.gab.delete(gi);btn.setAttribute('aria-expanded',String(abrir));btn.textContent=abrir?'Esconder os bairros ▴':'Ver os '+fmt(i.n)+' bairros ▾';});
+  const lab=el('div',{class:'gl'},el('b',{},nomeG(gi)),el('small',{},indFmt(k,i.lo)+' a '+indFmt(k,i.hi)),btn);
+  let bar,txt;
+  if(S.view==='dois'){const w=Math.abs(i.m)/mx*50,c=i.m>=0?MAIN[13]:MAIN[22];bar=el('div',{class:'gt','aria-hidden':'true'},el('i',{class:'zero'}),el('span',{style:'left:'+(i.m>=0?50:50-w)+'%;width:'+w+'%;background:'+c}));txt=el('div',{class:'gv'},el('b',{style:'color:'+c},lead(i.m)),el('small',{},'Lula '+fmt(i.p13,1)+'% · Flávio '+fmt(i.p22,1)+'%'));}
+  else{const v=val(i),c=S.view==='nulos'?MAIN.nulos:MAIN[S.view];bar=el('div',{class:'gt','aria-hidden':'true'},el('span',{style:'left:0;width:'+(v/mx*100)+'%;width:'+(v/mx*100)+'%;background:'+c}));txt=el('div',{class:'gv'},el('b',{style:'color:'+c},fmt(v,1)+'%'),el('small',{},S.view==='nulos'?fmt(i.nb)+' votos':fmt(S.view==='13'?i.v13:i.v22)+' votos'));}
+  return el('div',{class:'gwrap'},el('div',{class:'gp'},lab,bar,txt),list);}));}
+/* 2) ranking: quais características mais acompanham o resultado */
+const CURTO={renda_media_responsavel_com_renda_2022:'a renda média',pct_pretos_pardos:'a proporção de pretos e pardos',pct_60mais:'a proporção de pessoas com 60 anos ou mais',pct_15a29:'a proporção de jovens de 15 a 29 anos',pct_apartamento:'a proporção de domicílios em apartamento',pct_mulheres_responsaveis:'a proporção de mulheres responsáveis pelos domicílios',densidade_hab_km2:'a densidade demográfica',pct_domicilios_rede_agua:'a cobertura de água',pct_domicilios_rede_esgoto_pluvial:'a cobertura de esgoto'};
+function veredito(a){const n=CURTO[a.k]||D.indicadores[a.k];
+ if(a.lo<=0&&a.hi>=0)return{tag:'Sem padrão',cls:'no',txt:''};
+ const forte=Math.abs(a.rho)>=.4,mais=a.rho>0,tag=forte?'Mais consistente':'Fraca',cls=forte?'ok':'wk';
+ if(S.view==='dois')return{tag,cls,txt:'Nos bairros onde '+n+' é maior, '+(mais?'Lula':'Flávio')+' tende a ficar à frente; onde é menor, '+(mais?'Flávio':'Lula')+'.'};
+ if(S.view==='nulos')return{tag,cls,txt:'Nos bairros onde '+n+' é maior, tende a haver '+(mais?'mais':'menos')+' nulos e brancos.'};
+ return{tag,cls,txt:'Nos bairros onde '+n+' é maior, '+NM[S.view]+' tende a ter '+(mais?'mais':'menos')+' votos.'};}
+function drawRank(R){const y=YDEF(),T0=baseTipo(rows()),comp=T0.filter(compativel),f=v=>v==null?'—':(v>0?'+':'')+fmt(v,2);
+ const rs=D.ind_ordem.map(k=>({k,...assoc(R,k,y.key),sem:assoc(T0,k,y.key,false),com:assoc(comp,k,y.key,false)})).filter(a=>a.rho!=null).sort((a,b)=>Math.abs(b.rho)-Math.abs(a.rho));
+ $('rtitle').textContent='Quais características mais acompanham '+y.nome;
+ $('rsub').textContent='Associação entre bairros, não entre pessoas. '+(S.view==='dois'?'Vermelho: Lula vai melhor onde a característica é maior; azul: Flávio. ':'Para a direita: onde a característica é maior, '+y.nome+' tende a ser maior. ')+'Barra clara = sem padrão claro.';
+ $('rank').replaceChildren(...(rs.length?rs.map(a=>{const w=Math.abs(a.rho)*50,pos=a.rho>=0,inc=a.lo<=0&&a.hi>=0,col=S.view==='dois'?(pos?MAIN[13]:MAIN[22]):MAIN[S.view==='nulos'?'nulos':S.view],muda=a.sem.rho!=null&&a.com.rho!=null&&a.sem.rho*a.com.rho<0,v=veredito(a);
+  return el('div',{class:'rk'},el('div',{class:'rl'},D.indicadores[a.k],el('small',{},el('span',{class:'tag '+v.cls},v.tag),v.txt)),el('div',{class:'rt','aria-hidden':'true'},el('i',{class:'zero'}),el('span',{style:'left:'+(pos?50:50-w)+'%;width:'+w+'%;background:'+col+(inc?';opacity:.4':'')})),el('div',{class:'rv'},f(a.rho),el('small',{},'IC '+fmt(a.lo,2)+' a '+fmt(a.hi,2))),
+   el('div',{class:'rkc',title:'Correlação com todos os bairros, só com os de votos compatíveis'+(a.com.rho==null?'':' (n='+a.com.n+')')+', ponderada por votos válidos e ponderada pela população (Censo 2022)'},'Checagem: todos '+f(a.sem.rho)+' · filtro '+f(a.com.rho)+' · peso votos '+f(a.rhoW)+' · peso população '+f(a.rhoP)+(muda?' · ⚠ muda de sinal com o filtro':'')));}):[el('p',{class:'empty'},'Poucos bairros com dados (mínimo de 20).')]));}
+function compatNote(R,A){const ok=baseTipo(R).filter(r=>r.total!=null),fora=ok.filter(r=>!compativel(r)).length;
+ $('compatnote').textContent=S.compat?'Usando '+fmt(A.length)+' de '+fmt(ok.length)+' bairros.':'Usando '+fmt(ok.length)+' bairros; em '+fmt(fora)+' os votos destoam dos moradores.';}
+function drawSegT(R){const n=t=>R.filter(r=>r.total!=null&&(t==='todos'||r.tipo===t)).length;
+ $('segt').replaceChildren(...[['todos','Todos'],['ibge','IBGE'],['tse','TSE (estimados)']].map(([k,l])=>el('button',{type:'button','aria-pressed':String(S.tipo===k),onclick:()=>{S.tipo=k;S.grupo=null;S.gab=new Set();if(MAP)MAP._fitted=false;render();}},l+' · '+fmt(n(k)))));}
+/* 3) dispersão: um ponto por bairro; em "Os dois" é a diferença Lula − Flávio (sem espelho) */
+function drawChart(R){const svg=$('chart'),k=S.ind,ser=seriesDef(),isM=S.view==='dois',base=R.filter(r=>r.total!=null&&r.ind[k]!=null);svg.replaceChildren();
+$('chtitle').textContent=D.indicadores[k]+' × '+(isM?'diferença entre Lula e Flávio (pontos)':S.view==='nulos'?'% de nulos e brancos somados':'% de '+NM[S.view]);
+const a=assoc(analiticos(rows()),k,YDEF().key),sp=a.rho!=null?'Spearman '+fmt(a.rho,2)+' (IC 95%: '+fmt(a.lo,2)+' a '+fmt(a.hi,2)+', '+fmt(a.n)+' bairros). ':'Menos de 20 bairros: correlação não calculada. ';
+$('chsub').textContent=sp+(isM?'Acima da linha do zero Lula está na frente; abaixo, Flávio. ':'')+'Cada círculo é um bairro (tamanho = votos válidos); tracejado = bairro do TSE.'+(S.faixas.size?' Mostrando só as faixas de cor escolhidas na legenda do mapa.':'');
+if(!base.length){svg.append(sv('text',{x:60,y:80}));svg.lastChild.textContent='Sem bairros com dados para este cruzamento.';return;}
+const lg=LOG.includes(k),tx=v=>lg?Math.log10(Math.max(v,1)):v,W=780,H=460,m={l:60,r:20,t:14,b:56};
+const xs=base.map(r=>tx(r.ind[k])),x0=Math.min(...xs),x1=Math.max(...xs),ys=ser.flatMap(([key])=>base.map(r=>r[key])).filter(v=>v!=null);
+const ymin=isM?Math.floor(Math.min(...ys,0)/10)*10:Math.max(0,Math.floor((Math.min(...ys)-3)/10)*10),ymaxR=Math.ceil(Math.max(...ys,isM?0:-1e9)/10)*10||10,ymax=ymin+Math.ceil(Math.max(10,ymaxR-ymin)/20)*20;
+const X=v=>m.l+(W-m.l-m.r)*((tx(v)-x0)/((x1-x0)||1)),Y=v=>H-m.b-(H-m.t-m.b)*(v-ymin)/(ymax-ymin||1),vmax=Math.max(...base.map(r=>r.total)),yf=v=>isM?(v>0?'+':'')+fmt(v,0)+' pts':fmt(v,0)+'%';
+for(let t=0;t<=4;t++){const v=ymin+(ymax-ymin)*t/4,y=Y(v);svg.append(sv('line',{x1:m.l,x2:W-m.r,y1:y,y2:y,stroke:'#e9ecf1'}));const tt=sv('text',{x:m.l-8,y:y+4,'text-anchor':'end'});tt.textContent=yf(v);svg.append(tt);}
+if(isM){svg.append(sv('line',{x1:m.l,x2:W-m.r,y1:Y(0),y2:Y(0),stroke:'#131722','stroke-width':1.5}));const a1=sv('text',{x:W-m.r,y:Y(0)-6,'text-anchor':'end'});a1.textContent='Lula na frente ↑';a1.style.fill=MAIN[13];a1.style.fontWeight=700;svg.append(a1);const a2=sv('text',{x:W-m.r,y:Y(0)+16,'text-anchor':'end'});a2.textContent='Flávio na frente ↓';a2.style.fill=MAIN[22];a2.style.fontWeight=700;svg.append(a2);}
+const raw=[...Array(5)].map((_,t)=>{const u=x0+(x1-x0)*t/4;return lg?Math.pow(10,u):u});raw.forEach((v,i)=>{const t=sv('text',{x:X(v),y:H-m.b+18,'text-anchor':i===4?'end':i===0?'start':'middle'});t.textContent=indFmt(k,v).replace(' hab/km²','');svg.append(t)});
+const ax=sv('text',{x:(m.l+W-m.r)/2,y:H-10,'text-anchor':'middle'});ax.textContent=D.indicadores[k]+(lg?' (escala log)':'');svg.append(ax);
+ser.forEach(([key,c])=>base.filter(r=>r[key]!=null).sort((a,b)=>b.total-a.total).forEach(r=>{const rad=4+8*Math.sqrt(r.total/vmax),s=r.cd===S.sel,cx=X(r.ind[k]),cy=Y(r[key]),tse=r.tipo==='tse',fill=c==='dois'?(r.m>=0?MAIN[13]:MAIN[22]):MAIN[c];
+ const g=sv('g',{tabindex:0,role:'button','aria-label':r.nome+': '+(isM?fmt(r[key],1)+' pontos':fmt(r[key],1)+'%')});
+ g.append(sv('circle',{cx,cy,r:rad,fill,'fill-opacity':s?.95:.5,stroke:s?'#131722':(tse?'#3a4252':'#fff'),'stroke-width':s?3:1.5,'stroke-dasharray':tse&&!s?'3 2':'none'}));
+ g.append(sv('circle',{cx,cy,r:Math.max(rad,12),fill:'transparent'}));
+ g.addEventListener('pointermove',e=>showTip(tipNodes(r,true),e));g.addEventListener('pointerleave',hideTip);g.addEventListener('focus',()=>{const b=g.getBoundingClientRect();showTip(tipNodes(r,true),{clientX:b.x,clientY:b.y})});g.addEventListener('blur',hideTip);g.addEventListener('click',()=>select(r.cd));g.addEventListener('keydown',e=>{if(e.key==='Enter'||e.key===' '){e.preventDefault();select(r.cd)}});svg.append(g);
+ if(s){const t=sv('text',{x:cx+rad+5,y:cy+4});t.textContent=r.nome;t.style.fill='#131722';t.style.fontWeight=800;svg.append(t);}}));}
+const SH={renda_media_responsavel_com_renda_2022:'Renda (R$)',pct_pretos_pardos:'Pretos e pardos (%)',pct_60mais:'60+ anos (%)',pct_15a29:'15–29 anos (%)',pct_apartamento:'Apartamento (%)',pct_mulheres_responsaveis:'Mulheres resp. (%)',densidade_hab_km2:'Hab/km²',pct_domicilios_rede_agua:'Água (%)',pct_domicilios_rede_esgoto_pluvial:'Esgoto (%)'};
+function drawTable(R){const NUMS=['p13','p22','m','pnb','total','raz'];
+ const cols=[['nome','Bairro'],['tipo','Tipo'],['grp','Grupo',1],['p13','Lula %',1],['p22','Flávio %',1],['m','Diferença',1],['pnb','Nulos+brancos %',1],['total','Votos válidos',1],['raz','Votos ÷ moradores',1],...D.ind_ordem.map(k=>[k,SH[k]||D.indicadores[k],1])];
+$('thead').replaceChildren(el('tr',{},cols.map(([k,l,num])=>el('th',{class:num?'num':'',scope:'col','aria-sort':S.sort.k===k?(S.sort.dir>0?'ascending':'descending'):'none'},el('button',{type:'button',onclick:()=>{S.sort={k,dir:S.sort.k===k?-S.sort.dir:(k==='nome'||k==='tipo'?1:-1)};render()}},l+(S.sort.k===k?(S.sort.dir>0?' ▲':' ▼'):''))))));
+const q=S.q.trim().toLocaleLowerCase('pt-BR'),val=(r,k)=>k==='grp'?(S.gmap[r.cd]??null):k==='nome'||k==='tipo'||NUMS.includes(k)?r[k]:r.ind[k];
+const L2=R.filter(r=>!q||r.nome.toLocaleLowerCase('pt-BR').includes(q)).sort((a,b)=>{const x=val(a,S.sort.k),y=val(b,S.sort.k);if(x==null)return 1;if(y==null)return -1;return(typeof x==='string'?x.localeCompare(y,'pt-BR'):x-y)*S.sort.dir});
+$('tcount').textContent=fmt(L2.length)+' bairros · TSE = estimado · — = sem votos'+(S.faixas.size?' · filtrado pela legenda':'');
+$('tbody').replaceChildren(...L2.map(r=>el('tr',{class:r.cd===S.sel?'sel':'',tabindex:0,onclick:()=>select(r.cd),onkeydown:e=>{if(e.key==='Enter')select(r.cd)}},el('td',{translate:'no'},r.nome),el('td',{},el('span',{class:'pill'+(r.tipo==='tse'?' t':'')},r.tipo==='tse'?'TSE':'IBGE')),el('td',{class:'num'},S.gmap[r.cd]??'—'),
+ el('td',{class:'num'},fmt(r.p13,1)),el('td',{class:'num'},fmt(r.p22,1)),el('td',{class:'num'},r.m==null?'—':(r.m>0?'+':'')+fmt(r.m,1)),el('td',{class:'num'},fmt(r.pnb,1)),el('td',{class:'num'},fmt(r.total)),el('td',{class:'num'},fmt(r.raz,2)),...D.ind_ordem.map(k=>el('td',{class:'num'},indFmt(k,r.ind[k]))))));}
+function duel(p13,p22,v13,v22){const rest=Math.max(0,100-(p13||0)-(p22||0)),row=(c,p,v)=>el('div',{class:'row'},el('span',{class:'nm'},nm(c)),el('div',{class:'bar'},el('span',{style:'width:'+Math.min(100,p||0)+'%;background:'+MAIN[c]})),el('span',{class:'pc',style:'color:'+MAIN[c]},fmt(p,1)+'%',el('small',{},fmt(v)+' votos')));
+ return el('div',{class:'duel'},row(13,p13,v13),row(22,p22,v22),el('div',{class:'note'},'Outros candidatos: '+fmt(rest,1)+'%'));}
+function nulosLine(n,pn,br,pb){return el('div',{class:'kv'},el('div',{class:'l'},'Nulos · brancos (% dos votos totais)'),el('div',{class:'v'},fmt(pn,1)+'% · '+fmt(pb,1)+'%'));}
+function marginChip(m){if(m==null)return null;if(Math.abs(m)<.05)return el('span',{class:'chip'},'Empate');return el('span',{class:'chip '+(m>0?'a':'b')},(m>0?'Lula':'Flávio')+' à frente por '+fmt(Math.abs(m),1)+' pontos');}
+function drawHero(){const T=totals(),B=city();$('hero').replaceChildren(el('h1',{id:'h-city'},'Resultado em ',el('b',{translate:'no'},B.nome),' · % dos votos válidos'),
+ el('div',{class:'score'},el('div',{class:'cand c13'},el('div',{class:'who'},el('span',{class:'sw',style:'background:var(--r13)','aria-hidden':'true'}),el('span',{},'Lula · 13')),el('div',{class:'big'},fmt(T.p13,1)+'%'),el('div',{class:'sub'},fmt(T.v13)+' votos')),
+ el('div',{class:'cand c22'},el('div',{class:'who'},el('span',{},'Flávio Bolsonaro · 22'),el('span',{class:'sw',style:'background:var(--b22)','aria-hidden':'true'})),el('div',{class:'big'},fmt(T.p22,1)+'%'),el('div',{class:'sub'},fmt(T.v22)+' votos'))),
+ el('div',{class:'split','aria-hidden':'true'},el('i',{class:'a',style:'width:'+(T.p13||0)+'%'}),el('i',{class:'b',style:'width:'+(T.p22||0)+'%'})),
+ el('div',{class:'leads'},el('span',{},'Lula à frente em ',el('b',{},fmt(T.l13)),T.l13===1?' bairro':' bairros'),el('span',{},'Nulos ',el('b',{},fmt(T.pn,1)+'%'),' · brancos ',el('b',{},fmt(T.pb,1)+'%')),el('span',{},'Flávio à frente em ',el('b',{},fmt(T.l22)),T.l22===1?' bairro':' bairros')));}
+function drawPanel(R){const P=$('panel'),T=totals(),B=city();P.replaceChildren();P.classList.toggle('has-sel',!!S.sel);document.body.classList.toggle('sheet',!!S.sel);
+if(!S.sel){P.append(el('h2',{},B.nome),duel(T.p13,T.p22,T.v13,T.v22),marginChip(T.p13-T.p22),nulosLine(T.n,T.pn,T.br,T.pb),el('p',{class:'note',style:'margin-top:12px'},fmt(R.filter(r=>r.total).length)+' de '+fmt(R.length)+' bairros têm votos; os outros não têm local de votação. Toque em um bairro para ver os detalhes.'));return;}
+const r=R.find(x=>x.cd===S.sel);P.scrollTop=0;
+P.append(el('div',{class:'phead'},el('div',{},el('h2',{translate:'no'},r.nome),el('p',{class:'note',style:'margin:2px 0 0'},B.nome+' · '+(r.tipo==='tse'?'bairro do TSE (estimado)':'bairro do IBGE'))),el('button',{class:'xbtn',type:'button','aria-label':'Fechar detalhes do bairro',onclick:()=>select(r.cd)},'Fechar')));
+if(r.tipo==='tse')P.append(el('p',{class:'note',style:'margin-top:8px'},'Contorno e Censo vêm dos '+r.n+' setores mais próximos das urnas.'));
+if(r.total){const fora=r.raz!=null&&(r.raz<.5||r.raz>1.2);P.append(duel(r.p13,r.p22,r.v13,r.v22),marginChip(r.m),nulosLine(r.nulos,r.pn,r.brancos,r.pb),el('p',{class:'note',style:'margin-top:8px'},fmt(r.total)+' votos válidos'+(r.raz==null?'':' · '+fmt(r.raz,2)+' votos por morador'+(fora?' (fora de 0,5 a 1,2: a urna recebe eleitores de outros bairros)':''))));}
+else P.append(el('p',{class:'empty'},'Sem local de votação neste bairro. O Censo abaixo continua válido.'));
+P.append(el('h3',{style:'margin:14px 0 2px;font-size:15px'},'Censo 2022'));
+D.ind_ordem.forEach(k=>{const all=R.map(x=>x.ind[k]).filter(v=>v!=null),v=r.ind[k];const lo=Math.min(...all),hi=Math.max(...all),pos=x=>hi>lo?100*(x-lo)/(hi-lo):50,md=median(all);
+let note='Sem dado';if(v!=null){const below=all.filter(x=>x<v).length;note='Maior que '+fmt(100*below/all.length,0)+'% dos bairros · mediana '+indFmt(k,md)}
+P.append(el('div',{class:'cs'},el('div',{class:'cl'},el('span',{},D.indicadores[k]),el('b',{},indFmt(k,v))),v==null?'':el('div',{class:'ref','aria-hidden':'true'},el('em',{style:'left:'+pos(md)+'%'}),el('span',{style:'left:calc('+pos(v)+'% - 3px)'})),el('div',{class:'r'},note)));});}
+function sync(){const p=new URLSearchParams({cidade:S.city,ver:S.view,car:S.ind,aba:S.tab});if(S.sel)p.set('bairro',S.sel);if(S.compat)p.set('compat','1');if(S.tipo!=='todos')p.set('tipo',S.tipo);history.replaceState(null,'','#'+p);}
+function render(){document.body.dataset.c=S.view;const R=rows(),B=city(),V=visiveis();drawHero();if(S.tab==='mapa')drawMap(R,false);const A=analiticos(R);S.gmap=gruposMap(A);drawGFiltro();drawChart(V.filter(r=>A.includes(r)));drawGrupos(A);drawRank(A);compatNote(R,A);drawTable(V);drawPanel(R);drawSeg();drawSegT(R);
+$('cov').hidden=!(B.pct_tse>0);$('cov').textContent=B.pct_tse>0?fmt(B.pct_tse,1)+'% dos votos estão em bairros que só o TSE conhece (tracejados, desenho estimado).':'';
+$('mapnote').textContent='Fundo: OpenStreetMap (precisa de internet).';sync();}
+function setView(v){S.view=v;S.faixas=new Set();S.grupo=null;S.gab=new Set();S.sort={k:SORT0[v],dir:-1};render();}
+function drawSeg(){$('segc').replaceChildren(...VIEWS.map(([k,l])=>el('button',{type:'button','aria-pressed':String(S.view===k),onclick:()=>setView(k)},el('span',{class:'d',style:'background:'+(k==='dois'?'linear-gradient(90deg,#d73a3a 50%,#2f6fd0 50%)':MAIN[k]),'aria-hidden':'true'}),l)));}
+function setTab(t){S.tab=t;[...$('tabs').children].forEach(b=>{const on=b.dataset.t===t;b.setAttribute('aria-selected',on);b.tabIndex=on?0:-1});TABS.forEach(([k])=>$('p-'+k).hidden=k!==t);if(t==='mapa')drawMap(rows(),false);sync();}
+TABS.forEach(([k,l])=>$('tabs').append(el('button',{role:'tab',type:'button','data-t':k,'aria-selected':k==='mapa',onclick:()=>setTab(k),onkeydown:e=>{const i=TABS.findIndex(x=>x[0]===S.tab);if(e.key==='ArrowRight'||e.key==='ArrowLeft'){const j=(i+(e.key==='ArrowRight'?1:TABS.length-1))%TABS.length;setTab(TABS[j][0]);$('tabs').children[j].focus();}}},l)));
+Object.entries(D.cidades).forEach(([k,v])=>$('city').add(new Option(v.nome+' / PR',k)));
+D.ind_ordem.forEach(k=>$('ind').add(new Option(D.indicadores[k],k)));
+(()=>{const p=new URLSearchParams(location.hash.slice(1));if(D.cidades[p.get('cidade')])S.city=p.get('cidade');if(VIEWS.some(v=>v[0]===p.get('ver')))S.view=p.get('ver');S.sort={k:SORT0[S.view],dir:-1};if(D.ind_ordem.includes(p.get('car')))S.ind=p.get('car');if(p.get('bairro')&&D.cidades[S.city].bairros[p.get('bairro')])S.sel=p.get('bairro');if(TABS.some(t=>t[0]===p.get('aba')))S.tab=p.get('aba');S.compat=p.get('compat')==='1';if(['todos','ibge','tse'].includes(p.get('tipo')))S.tipo=p.get('tipo');})();
+$('city').value=S.city;$('ind').value=S.ind;$('compat').checked=S.compat;$('compat').addEventListener('change',()=>{S.compat=$('compat').checked;S.grupo=null;S.gab=new Set();if(MAP)MAP._fitted=false;render()});
+$('city').addEventListener('change',()=>{S.city=$('city').value;S.sel=null;S.faixas=new Set();S.grupo=null;S.gab=new Set();if(MAP)MAP._fitted=false;render();if(S.tab==='mapa')drawMap(rows(),true);});
+$('ind').addEventListener('change',()=>{S.ind=$('ind').value;S.grupo=null;S.gab=new Set();if(MAP)MAP._fitted=false;render()});
+$('q').addEventListener('input',()=>{S.q=$('q').value;drawTable(visiveis())});
+$('csv').addEventListener('click',()=>{const R=rows(),q=v=>'"'+String(v??'').replace(/"/g,'""')+'"';const head=['Bairro','Tipo','Votos validos','% Lula (13)','% Flavio Bolsonaro (22)','Votos Lula (13)','Votos Flavio Bolsonaro (22)','Diferenca (pontos)','% nulos+brancos (votos totais)','% nulos (votos totais)','% brancos (votos totais)','Nulos','Brancos','Moradores (Censo 2022)','Votos por morador',...D.ind_ordem.map(k=>D.indicadores[k])];
+const body=R.map(r=>[r.nome,r.tipo==='tse'?'TSE (aproximado)':'IBGE',r.total,r.p13==null?'':r.p13.toFixed(2),r.p22==null?'':r.p22.toFixed(2),r.v13,r.v22,r.m==null?'':r.m.toFixed(2),r.pnb==null?'':r.pnb.toFixed(2),r.pn==null?'':r.pn.toFixed(2),r.pb==null?'':r.pb.toFixed(2),r.nulos,r.brancos,r.pop==null?'':r.pop,r.raz==null?'':r.raz.toFixed(2),...D.ind_ordem.map(k=>r.ind[k])]);
+const a=el('a',{href:URL.createObjectURL(new Blob(['﻿'+[head,...body].map(x=>x.map(q).join(';')).join('\n')],{type:'text/csv'})),download:'bairros_'+S.city+'.csv'});a.click();});
+setTab(S.tab);render();
+</script></body></html>
