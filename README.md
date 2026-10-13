@@ -8,7 +8,7 @@
 ![Dados](https://img.shields.io/badge/dados-TSE%20%2B%20IBGE-0f1424)
 ![Status](https://img.shields.io/badge/an%C3%A1lise-explorat%C3%B3ria-c47a12)
 
-**[▶ Abrir a página](https://lorodrig.github.io/Voto_por_Bairro/)** · Maringá · Curitiba · Londrina (e qualquer cidade do PR com um comando)
+**[▶ Abrir a página](https://lorodrig.github.io/Voto_por_Bairro/)** · Maringá · Curitiba · Londrina
 
 <img src="docs/img/mapa.png" alt="Mapa de Maringá por bairro, com placar e legenda" width="880">
 
